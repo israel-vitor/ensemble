@@ -10,3 +10,14 @@
   color: var(--primary);
   text-transform: uppercase;
 }
+
+.default-button {
+  background-color: var(--primary);
+  color: white;
+  font-family: var(--font-default);
+  font-weight: bold;
+}
+
+.default-button:hover {
+  color: white;
+}
