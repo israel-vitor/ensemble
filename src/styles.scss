@@ -1,1 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+@import 'assets/style/_colors';
+@import 'assets/style/_fonts';
+
+
+.ensemble-logo {
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 64px;
+  color: var(--primary);
+  text-transform: uppercase;
+}
