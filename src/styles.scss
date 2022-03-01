@@ -21,3 +21,10 @@
 .default-button:hover {
   color: white;
 }
+
+.link {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
