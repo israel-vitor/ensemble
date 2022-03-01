@@ -1,13 +1,14 @@
-.login {
-  height: 100vh;
+.sign-up {
   display: flex;
+  overflow: scroll;
   flex-direction: column;
   justify-content: center;
+  padding-top: 40px;
+  padding-bottom: 100px;
 
   .card {
     padding: 50px;
     width: 500px;
-    height: 460px;
     border-radius: 12px;
     font-size: 18px;
     justify-content: space-around;
