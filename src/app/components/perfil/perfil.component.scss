@@ -1,16 +1,16 @@
 .container{
   margin-top: 200px;
-  
+
   .btn-info{
-    background-color: #23668B;
+    background-color: var(--primary);
     color: #FFFFFF;
-    border: #23668B;
+    border: var(--primary);
   }
-  
+
   .btn{
     width: 100%;
   }
-  
+
   .btn-exit{
     width: 50%;
   }
