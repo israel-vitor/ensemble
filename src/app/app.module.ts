@@ -7,6 +7,11 @@ import { AppComponent } from './app.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { HomeComponent } from './components/home/home.component';
+import { PerfilComponent } from './components/perfil/perfil.component';
+import { ServicosComponent } from './components/servicos/servicos.component';
+import { GrupoComponent } from './components/grupo/grupo.component';
+import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
@@ -14,11 +19,16 @@ import { HttpClientModule } from '@angular/common/http';
     AppComponent,
     LoginComponent,
     SignUpComponent,
-    ToolbarComponent
+    ToolbarComponent,
+    HomeComponent,
+    PerfilComponent,
+    ServicosComponent,
+    GrupoComponent,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
+    CommonModule
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule

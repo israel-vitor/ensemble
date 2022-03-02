@@ -1,0 +1,87 @@
+<div class="container">
+  <div class="card card-info-grupo col-md-12">
+    <div class="row">
+      <h3 class="pt-4 ps-4 pe-4 pb-2"> Netflix do Lucas </h3>
+    </div>
+    <div class="details-grupo ps-5">
+      <div class="principal-content row mb-4">
+        <div class="col-md-2 col-sm-12 center-row">
+          <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
+        </div>
+        <div class="center-row col-md-3 col-sm-12">
+          <h1> NETFLIX </h1>
+        </div>
+        <div class="price center-column col-md-7 col-sm-12">
+          <p class="valor text-end pe-5"> 14,00 </p>
+          <p class="text-end descricao-valor pe-5"> por assinante </p>
+        </div>
+      </div>
+      <div class="descricao mb-4">
+        <p class="title-section">Descrição</p>
+        <p class="text-descricao pe-5">
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pellentesque neque dolor, scelerisque varius felis interdum non. 
+          Maecenas feugiat metus a lectus pellentesque, et feugiat sem eleifend. Pellentesque tortor sapien, dapibus vel justo eu, facilisis 
+          laoreet ligula. Nullam eu ipsum ante. In hac habitasse platea dictumst.
+        </p>
+      </div>
+      <div class="vagas pb-2">
+        <p class="title-section"> Vagas Restantes: <span class="valor"> 2 vagas </span> </p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-sm-12 mb-5">
+      <div class="card card-info-participantes">
+        <div class="row">
+          <h3 class="pt-4 ps-4 pe-4 pb-2"> PARTICIPANTES </h3>
+        </div>
+        <div class="details-participantes ps-5">
+          <ul>
+            <li *ngFor="let user of users">
+              <div class="row" *ngIf="isOwner || user.accept">
+                <div class="col-md-6 user">
+                  <i class="fa fa-user icon-perfil pe-3"></i>
+                  <p>{{ user.name }}</p> 
+                </div>
+                <div class="col-md-6" *ngIf="isOwner">
+                  <div *ngIf="user.accept; then jaParticipante else naoParticipante"></div>
+                  <ng-template #jaParticipante>
+                    <div class="float-md-end float-lg-end float-xl-end float-xxl-end">
+                      <a href=""><span class="badge ps-4 pe-4 bg-info-mod">Já participante</span></a>
+                    </div>
+                  </ng-template>
+                  <ng-template #naoParticipante>
+                    <div class="float-md-end float-lg-end float-xl-end float-xxl-end">
+                      <a href=""><span class="badge ps-4 pe-4 bg-danger me-2">Recusar solicitação</span></a>
+                      <a href=""><span class="badge ps-4 pe-4 bg-success">Aceitar solicitacao</span></a>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  
+    <div class="col-md-5 col-sm-12" *ngIf="!isOwner">
+      <div class="card card-valor-final mb-5 pt-4 pb-3 ps-5 pe-5">
+        <div class="valor">
+          <p class="text-info-valor"> Valor Total </p>
+          <p class="text-valor text-quantidade"> 55,90 </p>
+        </div>
+        <div class="quantidade mb-2">
+          <p class="text-info-valor"> Quantidade de Contas</p>
+          <p class="text-quantidade"> 4 </p>
+        </div>
+        <div class="total mb-4">
+          <p class="text-info-valor"> Valor Final </p>
+          <p class="text-quantidade"> 14.00 </p>
+        </div>
+        <button class="btn btn-success mb-2"> Quero Participar </button>
+      </div>
+    </div>
+
+  </div>
+</div>

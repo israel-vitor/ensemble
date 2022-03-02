@@ -1,5 +1,6 @@
+<!-- TODO: ALTERAR O READONLY PARA FICAR DINÂMICO -->
 <div class="container">
-  <div class="row">
+  <div class="row mb-4">
     <div class="col-md-6 col-sm-12">
       <div class="form-group mb-4">
         <label for="email" class="form-label">Email</label>
@@ -36,14 +37,25 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-md-3 col-sm-12">
-      <button type="button" class="btn btn-info"><i class="fa fa-user"></i> Editar Perfil</button>
-    </div>
-    <div class="col-md-3 col-sm-12">
-      <button type="button" class="btn btn-info"><i class="fa fa-lock"></i> Alterar Senha</button>
-    </div>
+    <div *ngIf="isEdit; then thenBlock else elseBlock"></div>
+    <ng-template #thenBlock>
+      <div class="col-md-3 col-sm-12">
+        <button type="button" class="btn btn-success"><i class="fa fa-user"></i> Salvar </button>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <button type="button" class="btn btn-danger"><i class="fa fa-lock"></i> Cancelar </button>
+      </div>
+    </ng-template>
+    <ng-template #elseBlock>
+      <div class="col-md-3 col-sm-12">
+        <button type="button" class="btn btn-info"><i class="fa fa-user"></i> Editar Perfil</button>
+      </div>
+      <div class="col-md-3 col-sm-12">
+        <button type="button" class="btn btn-info"><i class="fa fa-lock"></i> Alterar Senha</button>
+      </div>
+    </ng-template>
     <div class="col-md-6 col-sm-12">
-      <button type="button" class="btn btn-danger btn-exit float-md-end float-lg-end float-xl-end float-xxl-end"><i class="fa fa-sign-out"></i> Sair</button>
+      <button type="button" class="btn btn-secondary btn-exit float-md-end float-lg-end float-xl-end float-xxl-end"><i class="fa fa-sign-out"></i> Sair</button>
     </div>
   </div>
 </div>
