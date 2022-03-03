@@ -32,6 +32,7 @@ export class SessionService {
   public getRefreshToken(): string | null {
     return window.sessionStorage.getItem(REFRESH_TOKEN_KEY);
   }
+
   public saveUser(user: any): void {
     window.sessionStorage.removeItem(USER_KEY);
     window.sessionStorage.setItem(USER_KEY, JSON.stringify(user));
