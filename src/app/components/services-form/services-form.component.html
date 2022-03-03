@@ -1,0 +1,29 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title">{{ modalTitle }}</h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body">
+  <form>
+    <div class="mb-3">
+      <label for="name">Nome</label>
+      <div class="input-group">
+        <input [(ngModel)]="name" id="name" class="form-control" name="name" type="text">
+      </div>
+    </div>
+  </form>
+</div>
+<div class="modal-footer">
+  <div *ngIf="editMode; then ifBlock else elseBlock"></div>
+  <ng-template #ifBlock>
+    <div class="actions">
+      <button type="button" class="btn btn-danger"> Excluir </button>
+      <button type="button" class="btn btn-success"> Salvar </button>
+    </div>
+  </ng-template>
+  <ng-template #elseBlock>
+      <div class="actions">
+        <button type="button" class="btn btn-danger" (click)="activeModal.dismiss()"> Cancelar </button>
+        <button type="button" class="btn btn-success"> Salvar </button>
+      </div>
+  </ng-template>
+</div>

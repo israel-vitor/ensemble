@@ -14,6 +14,7 @@ import { GrupoComponent } from './components/grupo/grupo.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ServicesFormComponent } from './components/services-form/services-form.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
     PerfilComponent,
     ServicosComponent,
     GrupoComponent,
+    ServicesFormComponent,
   ],
   imports: [
     BrowserModule,
