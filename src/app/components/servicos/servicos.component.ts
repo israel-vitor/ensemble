@@ -16,7 +16,7 @@ export class ServicosComponent implements OnInit {
 
   addService() {
     const modalRef = this.modalService.open(ServicesFormComponent, { backdrop: 'static', keyboard: false });
-    modalRef.componentInstance.editMode = true;
+    // modalRef.componentInstance.editMode = true;
   }
 
 }

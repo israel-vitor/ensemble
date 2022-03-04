@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Service } from "../../interfaces/service";
 import { Plan } from "../../interfaces/plan";
 import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Category } from "../../interfaces/category";
 
 @Component({
   selector: 'app-services-form',
@@ -19,6 +20,11 @@ export class ServicesFormComponent implements OnInit {
   plans: Plan[] = []
 
   modalTitle: string = ''
+
+  categories: Category[] = [
+    { description: 'Filmes', id: 1 },
+    { description: 'Música', id: 2 }
+  ]
 
   constructor(public activeModal: NgbActiveModal) {
   }
