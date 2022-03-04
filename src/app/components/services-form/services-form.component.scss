@@ -1,0 +1,39 @@
+.actions {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+
+  button {
+    width: 100%;
+    margin: auto 10px;
+  }
+}
+
+.plan-container {
+  position: relative;
+
+  .card {
+    border-width: 1px;
+    border-color: darkgrey;
+    padding: 20px;
+  }
+
+  .plan-header {
+    z-index: 2;
+    position: absolute;
+    background: #fff;
+    left: 5%;
+    top: -3%;
+    width: 25%;
+    text-align: center;
+  }
+}
+
+.add-plan {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.exclude-plan {
+  margin-left: 7px
+}

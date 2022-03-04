@@ -1,0 +1,17 @@
+.container{
+  margin-top: 200px;
+
+  .btn-info{
+    background-color: var(--primary);
+    color: #FFFFFF;
+    border: var(--primary);
+  }
+
+  .btn{
+    width: 100%;
+  }
+
+  .btn-exit{
+    width: 50%;
+  }
+}

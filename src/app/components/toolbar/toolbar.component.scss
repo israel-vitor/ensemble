@@ -1,0 +1,28 @@
+.toolbar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: var(--primary);
+  color: white;
+
+  .ensemble-logo {
+    color: white;
+    font-size: 27px;
+  }
+
+  .nav a {
+    color: white !important;
+    font-weight: 300;
+  }
+
+  .nav .active {
+    font-weight: bolder;
+  }
+}
+
+

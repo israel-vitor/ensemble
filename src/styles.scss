@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 @import 'assets/style/_colors';
 @import 'assets/style/_fonts';
+@import '~bootstrap/scss/bootstrap';
 
 
 .ensemble-logo {
@@ -20,4 +21,11 @@
 
 .default-button:hover {
   color: white;
+}
+
+.link {
+  color: var(--primary);
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
 }

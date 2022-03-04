@@ -1,21 +1,21 @@
 <div class="login">
-  <h1 class="ensemble-logo text-center mb-4">ensemble</h1>
+  <h1 class="ensemble-logo text-center my-4">ensemble</h1>
 
   <div class="card mx-auto">
     <div class="email-field">
-      <label for="email" class="form-label">Email</label>
+      <label [(ngModel)]="user.email" for="email" class="form-label">Email</label>
       <input type="email" class="form-control" id="email" placeholder="name@example.com">
     </div>
 
     <div class="password-field">
       <label for="password" class="form-label">Senha</label>
-      <input type="password" class="form-control" id="password">
+      <input [(ngModel)]="user.password" type="password" class="form-control" id="password">
       <p class="link mt-2">Esqueci minha senha</p>
     </div>
 
     <div class="actions">
-      <button type="button" class="btn btn-lg default-button mb-2">Primary</button>
-      <p>Não possui conta? <span class="link">Cadastre-se</span></p>
+      <button type="button" class="btn btn-lg default-button mb-2" (click)="login">Entrar</button>
+      <p>Não possui conta? <span class="link" routerLink="/cadastro">Cadastre-se</span></p>
     </div>
 
   </div>
