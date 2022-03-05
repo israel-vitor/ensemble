@@ -15,6 +15,8 @@ import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesFormComponent } from './components/services-form/services-form.component';
+import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
+import { ToastsContainer } from './components/toasts-container/toasts-container.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +29,8 @@ import { ServicesFormComponent } from './components/services-form/services-form.
     ServicosComponent,
     GrupoComponent,
     ServicesFormComponent,
+    ActivateAccountComponent,
+    ToastsContainer
   ],
   imports: [
     BrowserModule,

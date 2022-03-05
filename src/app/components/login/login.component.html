@@ -3,21 +3,23 @@
 
   <div class="card mx-auto">
     <div class="email-field">
-      <label [(ngModel)]="user.email" for="email" class="form-label">Email</label>
-      <input type="email" class="form-control" id="email" placeholder="name@example.com">
+      <label for="email" class="form-label">Email</label>
+      <input [(ngModel)]="user.email" type="email" class="form-control" id="email" name="email" ngDefaultControl placeholder="name@example.com">
     </div>
 
     <div class="password-field">
       <label for="password" class="form-label">Senha</label>
-      <input [(ngModel)]="user.password" type="password" class="form-control" id="password">
+      <input [(ngModel)]="user.password" type="password" class="form-control" id="password" name="password" ngDefaultControl>
       <p class="link mt-2">Esqueci minha senha</p>
     </div>
 
     <div class="actions">
-      <button type="button" class="btn btn-lg default-button mb-2" (click)="login">Entrar</button>
+      <button type="button" class="btn btn-lg default-button mb-2" (click)="login()">Entrar</button>
       <p>Não possui conta? <span class="link" routerLink="/cadastro">Cadastre-se</span></p>
     </div>
 
   </div>
 
 </div>
+
+<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>

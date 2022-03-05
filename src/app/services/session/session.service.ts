@@ -45,4 +45,8 @@ export class SessionService {
     }
     return {};
   }
+
+  signOut(): void {
+    window.sessionStorage.clear();
+  }
 }

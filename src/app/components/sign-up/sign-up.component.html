@@ -39,30 +39,21 @@
 
 
     <div class="actions">
-      <button type="button" class="mb-2 btn btn-lg default-button" (click)="signUp(activationModal)">Cadastrar</button>
+      <button type="button" class="mb-2 btn btn-lg default-button" (click)="signUp(successModal)">Cadastrar</button>
       <p>Já possui conta? Faça o <span routerLink="/login" class="link">login</span></p>
     </div>
 
   </div>
 
-  <ng-template #activationModal let-modal>
+  <ng-template #successModal let-modal>
     <div class="modal-header">
-      <h4 class="modal-title" id="modal-basic-title">Confirme seu email</h4>
-      <button type="button" class="btn-close" aria-label="Close" (click)="modal.dismiss()"></button>
+      <h4 class="modal-title" id="modal-basic-title">Quase lá</h4>
     </div>
     <div class="modal-body">
-      <p>Enviamos um código para o seu email. Por favor insira o código no campo abaixo para ativação da conta</p>
-      <form>
-        <div class="mb-3">
-          <label for="token">Código</label>
-          <div class="input-group">
-            <input [(ngModel)]="token" id="token" class="form-control" name="token" type="text">
-          </div>
-        </div>
-      </form>
+      <p>Enviamos uma mensagem para o seu email com instruções para que você ative sua conta. Por favor verifique sua caixa de entrada.</p>
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-outline-dark" (click)="activateUser">Confirmar</button>
+      <button type="button" class="btn btn-outline-dark" (click)="modal.dismiss()">Fechar</button>
     </div>
   </ng-template>
 
