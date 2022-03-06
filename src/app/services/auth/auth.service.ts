@@ -4,7 +4,6 @@ import { User } from '../../interfaces/user';
 import { Observable } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
-import {TOKEN_HEADER_KEY} from "../../interceptors/auth.interceptor";
 import {SessionService} from "../session/session.service";
 import {CommonService} from "../common/common.service";
 
@@ -45,21 +44,18 @@ export class AuthService {
       .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
   }
 
-  refreshToken(token: string): Observable<any> {
-    // TODO: change where the refresh token goes
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-        [TOKEN_HEADER_KEY]: 'Bearer ' + token
-      }),
-    };
+  refreshToken(): Observable<any> {
     return this.http
-      .patch<any>(this.BASE_URL + '/refresh', httpOptions)
+      .patch<any>(this.BASE_URL + '/refresh', this.httpOptions)
       .pipe(retry(1), catchError(this.commonService.handleError));
   }
 
   public isAuthenticated() {
     const token = this.sessionService.getToken();
     return token !== null;
+  }
+
+  public logout() {
+    this.sessionService.signOut();
   }
 }

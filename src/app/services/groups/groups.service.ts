@@ -22,8 +22,7 @@ export class GroupsService {
     private commonService: CommonService
   ) {}
 
-  getAllGroups(): Promise<Group[]> {
-
+  getAllGroups(): Promise<any> {
     return this.http
       .get<any>(this.BASE_URL + '/group', this.httpOptions)
       .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
