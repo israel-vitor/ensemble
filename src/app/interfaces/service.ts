@@ -1,4 +1,5 @@
 import {Category} from "./category";
+import {Plan} from "./plan";
 
 export interface Service {
   id?: number
@@ -8,10 +9,4 @@ export interface Service {
   plans?: Plan[]
 }
 
-interface Plan {
-  id: number
-  name: string
-  description: string
-  price: number,
-  usersNumber: number
-}
+

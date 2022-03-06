@@ -10,7 +10,6 @@ export class CommonService {
   constructor() { }
 
   handleError(error: any) {
-    console.log(error)
     let errorMessage = '';
     if (error.error instanceof ErrorEvent) {
       errorMessage = error.error.message;

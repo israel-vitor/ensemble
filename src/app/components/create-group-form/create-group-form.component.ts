@@ -1,6 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {Service} from "../../interfaces/service";
+import {Plan} from "../../interfaces/plan";
 
 @Component({
   selector: 'app-create-group-form',
@@ -11,14 +12,37 @@ export class CreateGroupFormComponent implements OnInit {
 
   @Input() serviceData: Service = {};
 
-  public planId: number | undefined;
-  public serviceId: number | undefined;
+  public planId?: number;
+  public serviceId?: number;
+
+  public groupName?: string;
+  public plans: Plan[] = [];
+
+  public price?: string;
+  public usersNumber?: number;
+  public valuePerUser?: string;
 
   constructor(public activeModal: NgbActiveModal) {
-    this.serviceId = this.serviceData.id
+
+
+
   }
 
   ngOnInit(): void {
+    this.serviceId = this.serviceData.id
+    this.plans = this.serviceData.plans || []
+    // TODO: user the stored user data here to show the user name
+    this.groupName = this.serviceData.name + ' do(a) ' + 'Israel'
+  }
+
+  updatePlan(newValue: any) {
+    console.log(this.plans)
+    const { price = '', usersNumber = 0 } = this.plans.find(plan => plan.id === newValue) || {}
+    console.log(this.plans, price, newValue)
+    this.price = `R$ ${price}`
+    this.usersNumber = usersNumber
+    const valuePerMember = Number(price) / usersNumber
+    this.valuePerUser = `R$ ${valuePerMember}`
   }
 
 }
