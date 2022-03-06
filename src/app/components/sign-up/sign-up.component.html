@@ -4,37 +4,37 @@
   <div class="card mx-auto">
     <div class="email-field mb-4">
       <label for="email" class="form-label">Email</label>
-      <input [(ngModel)]="user.email" type="email" class="form-control" id="email" placeholder="exemplo@mail.com">
+      <input [(ngModel)]="user.email" type="email" class="form-control" id="email" placeholder="exemplo@mail.com" (blur)="valid_email()" required>
     </div>
 
     <div class="name-field mb-4">
       <label for="name" class="form-label">Nome</label>
-      <input [(ngModel)]="user.name" type="text" class="form-control" id="name" placeholder="John Doe">
+      <input [(ngModel)]="user.name" type="text" class="form-control" id="name" placeholder="John Doe" required>
     </div>
 
     <div class="cpf-field mb-4">
       <label for="cpf" class="form-label">CPF</label>
-      <input  [(ngModel)]="user.document" type="text" class="form-control" id="cpf" placeholder="111.111.111-11">
+      <input  [(ngModel)]="user.document" type="text" class="form-control" id="cpf" placeholder="111.111.111-11" (keyup)="cpf_mask($event)" required>
     </div>
 
     <div class="username-field mb-4">
       <label for="username" class="form-label">Nome de usuário</label>
-      <input [(ngModel)]="user.username" type="text" class="form-control" id="username" placeholder="john_doe_12">
+      <input [(ngModel)]="user.username" type="text" class="form-control" id="username" placeholder="john_doe_12" required>
     </div>
 
     <div class="birth-date-field mb-4">
       <label for="birth-date" class="form-label">Data de nascimento</label>
-      <input [(ngModel)]="user.birthDate" type="date" class="form-control" id="birth-date" placeholder="02/07/1994">
+      <input [(ngModel)]="user.birthDate" type="date" class="form-control" id="birth-date" placeholder="02/07/1994" required>
     </div>
 
     <div class="password-field mb-4">
       <label for="password" class="form-label">Senha</label>
-      <input [(ngModel)]="user.password" type="password" class="form-control" id="password">
+      <input [(ngModel)]="user.password" type="password" class="form-control" id="password" required>
     </div>
 
     <div class="confirm-password-field mb-5">
       <label for="confirm-password" class="form-label">Confirme sua senha</label>
-      <input [(ngModel)]="confirmPassword" type="password" class="form-control" id="confirm-password">
+      <input [(ngModel)]="confirmPassword" type="password" class="form-control" id="confirm-password" required>
     </div>
 
 

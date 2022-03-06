@@ -3,7 +3,7 @@ export interface User {
   token?: string
   email: string
   name?: string
-  document?: string
+  document: string
   username?: string
   password?: string
   birthDate?: string
