@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'grupo/:id', component: GrupoComponent, canActivate: [AuthGuard] },
   { path: 'criar-grupo', component: CriarGrupoComponent, canActivate: [AuthGuard] },
-  { path: 'meus-grupos', component: MeusGruposComponent, canActivate: [AuthGuard] },
+  { path: 'meus-grupos', component: MeusGruposComponent, canActivate: [AuthGuard]},
   { path: 'admin/servicos', component: ServicosComponent, canActivate: [AuthGuard] },
   { path: 'ativar-conta/:token', component: ActivateAccountComponent }
 ];
