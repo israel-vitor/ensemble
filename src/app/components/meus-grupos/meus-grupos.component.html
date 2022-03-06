@@ -1,6 +1,6 @@
 <div class="container">
-  <button class="no-bg no-border"><span class="border-rounded badge ps-4 pe-4 bg-info-mod font-2 me-2">Membro</span></button>
-  <button class="no-bg no-border"><span class="border-rounded badge ps-4 pe-4 no-bg font-2 me-2">Admin</span></button>
+  <button class="no-bg no-border" (click)="view_div('membro')"><span class="border-rounded badge ps-4 pe-4 bg-info-mod font-2 me-2" id="btn_membro">Membro</span></button>
+  <button class="no-bg no-border" (click)="view_div('admin')"><span class="border-rounded badge ps-4 pe-4 no-bg font-2 me-2" id="btn_admin">Admin</span></button>
   <!-- <ul class="nav nav-tabs mb-3">
     <li class="nav-item" role="presentation">
       
@@ -14,10 +14,10 @@
   </ul> -->
   
   <div class="tab-content">
-    <div class="tab-pane show active" id="div-grupos-membro" role="tabpanel" aria-labelledby="grupos-membro">
+    <div class="tab-pane show active" *ngIf="!isAdmin"  id="div-grupos-membro" role="tabpanel" aria-labelledby="grupos-membro">
       <div class="card-group">
         <div class="col-sm-6 col-md-3 col-lg-3" *ngFor="let group of member_groups">
-          <div class="card">
+          <div class="card" (click)="showDetails(group.id)">
             <img src="{{ group.image }}" alt="">
             <section class="text-center info">
               <p> {{ group.group_name }} </p>
@@ -33,7 +33,7 @@
         </div>
       </div>
     </div>
-    <div class="tab-pane" id="div-grupos-admin" role="tabpanel" aria-labelledby="grupos-admin">
+    <div class="tab-pane show active" *ngIf="isAdmin" id="div-grupos-admin" role="tabpanel" aria-labelledby="grupos-admin">
       <div class="card-group">
         <div class="col-sm-6 col-md-3 col-lg-3" *ngFor="let group of owner_groups">
           <div class="card">
