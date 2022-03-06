@@ -6,6 +6,8 @@ import { HomeComponent } from './components/home/home.component'
 import { ServicosComponent } from './components/servicos/servicos.component'
 import { PerfilComponent } from './components/perfil/perfil.component'
 import { GrupoComponent } from './components/grupo/grupo.component'
+import { MeusGruposComponent } from './components/meus-grupos/meus-grupos.component'
+import { CriarGrupoComponent } from './components/criar-grupo/criar-grupo.component'
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component'
 import {AuthGuard} from "./guards/auth.guard";
 
@@ -16,6 +18,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
   { path: 'grupo', component: GrupoComponent, canActivate: [AuthGuard] },
+  { path: 'grupo/criar', component: CriarGrupoComponent },
+  { path: 'grupo/meus', component: MeusGruposComponent },
   { path: 'admin/servicos', component: ServicosComponent, canActivate: [AuthGuard] },
   { path: 'ativar-conta/:token', component: ActivateAccountComponent }
 ];
