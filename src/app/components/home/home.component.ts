@@ -23,9 +23,6 @@ export class HomeComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadGroups()
-    this.authService.refreshToken().toPromise().then(response => {
-      console.log(response)
-    })
   }
 
   loadGroups() {

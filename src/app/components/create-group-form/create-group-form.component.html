@@ -42,9 +42,9 @@
     </div>
 
     <div class="mb-3">
-      <label>Vagas totais</label>
+      <label>Valor por membro</label>
       <div class="input-group mt-2">
-        <input [(ngModel)]="usersNumber" readonly class="form-control" name="usersNumber" type="text">
+        <input [(ngModel)]="valuePerUser" readonly class="form-control" name="valuePerMember" type="text">
       </div>
     </div>
 
@@ -52,7 +52,7 @@
 </div>
 <div class="modal-footer">
     <div class="actions">
-      <button type="button" class="btn btn-success"> Salvar </button>
+      <button [disabled]="!planId" type="button" class="btn btn-success"> Salvar </button>
       <button type="button" class="btn btn-danger" (click)="activeModal.dismiss()"> Cancelar </button>
     </div>
 </div>

@@ -23,9 +23,6 @@ export class CreateGroupFormComponent implements OnInit {
   public valuePerUser?: string;
 
   constructor(public activeModal: NgbActiveModal) {
-
-
-
   }
 
   ngOnInit(): void {
@@ -36,13 +33,11 @@ export class CreateGroupFormComponent implements OnInit {
   }
 
   updatePlan(newValue: any) {
-    console.log(this.plans)
-    const { price = '', usersNumber = 0 } = this.plans.find(plan => plan.id === newValue) || {}
-    console.log(this.plans, price, newValue)
+    const { price = '', usersNumber = 0 } = this.plans.find(plan => plan.id === Number(newValue)) || {}
     this.price = `R$ ${price}`
     this.usersNumber = usersNumber
     const valuePerMember = Number(price) / usersNumber
-    this.valuePerUser = `R$ ${valuePerMember}`
+    this.valuePerUser = `R$ ${valuePerMember.toFixed(2)}`
   }
 
 }
