@@ -3,6 +3,7 @@ import {User} from '../../interfaces/user';
 import {AuthService} from '../../services/auth/auth.service';
 import {Router} from "@angular/router";
 import {SessionService} from "../../services/session/session.service";
+import {ToastService} from "../../services/toast/toast.service";
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent implements OnInit {
   constructor(
     private authService: AuthService,
     private router: Router,
-    private sessionService: SessionService
+    private sessionService: SessionService,
+    public toastService: ToastService
   ) {
   }
 
@@ -34,7 +36,10 @@ export class LoginComponent implements OnInit {
       this.sessionService.saveToken(data.token);
       this.sessionService.saveRefreshToken(data.token);
       this.router.navigate(['/home'])
+    }).catch((e) => {
+      this.toastService.showError('Houve um erro ao realizar o login!');
     });
+
   }
 
 }
