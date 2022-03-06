@@ -13,7 +13,8 @@ export class LoginComponent implements OnInit {
 
   user: User = {
     email: '',
-    password: ''
+    password: '',
+    document: '000.000.000.00'
   }
 
   constructor(
