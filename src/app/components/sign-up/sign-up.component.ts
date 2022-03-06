@@ -85,18 +85,19 @@ export class SignUpComponent implements OnInit {
   }
 
   public test_cpf(cpf:string): boolean {
+    let _cpf = cpf.replace('.','').replace('.','').replace('-','')
     let numeros, digitos, soma, i, resultado, digitos_iguais;
     digitos_iguais = 1;
-    if (cpf.length < 11) return false;
-    for (i = 0; i < cpf.length - 1; i++) {
-        if (cpf.charAt(i) != cpf.charAt(i + 1)) {
+    if (_cpf.length < 11) return false;
+    for (i = 0; i < _cpf.length - 1; i++) {
+        if (_cpf.charAt(i) != _cpf.charAt(i + 1)) {
             digitos_iguais = 0;
             break;
         }
     }
     if (!digitos_iguais) {
-        numeros = cpf.substring(0,9);
-        digitos = cpf.substring(9);
+        numeros = _cpf.substring(0,9);
+        digitos = _cpf.substring(9);
         soma = 0;
         for (i = 10; i > 1; i--) {
             soma += parseInt(numeros.charAt(10 - i)) * i;
@@ -105,7 +106,7 @@ export class SignUpComponent implements OnInit {
         if (resultado != parseInt(digitos.charAt(0))) {
             return false;
         }
-        numeros = cpf.substring(0,10);
+        numeros = _cpf.substring(0,10);
         soma = 0;
         for (i = 11; i > 1; i--) {
             soma += parseInt(numeros.charAt(11 - i)) * i;

@@ -4,12 +4,12 @@
   <div class="card mx-auto">
     <div class="email-field">
       <label for="email" class="form-label">Email</label>
-      <input [(ngModel)]="user.email" type="email" class="form-control" id="email" name="email" ngDefaultControl placeholder="name@example.com">
+      <input [(ngModel)]="user.email" type="email" class="form-control" id="email" name="email" ngDefaultControl placeholder="name@example.com" required>
     </div>
 
     <div class="password-field">
       <label for="password" class="form-label">Senha</label>
-      <input [(ngModel)]="user.password" type="password" class="form-control" id="password" name="password" ngDefaultControl>
+      <input [(ngModel)]="user.password" type="password" class="form-control" id="password" name="password" ngDefaultControl required>
       <p class="link mt-2">Esqueci minha senha</p>
     </div>
 
