@@ -20,6 +20,7 @@ import { ServicesFormComponent } from './components/services-form/services-form.
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 import { ToastsContainer } from './components/toasts-container/toasts-container.component';
 import {authInterceptorProviders} from "./interceptors/auth.interceptor";
+import { CreateGroupFormComponent } from './components/create-group-form/create-group-form.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import {authInterceptorProviders} from "./interceptors/auth.interceptor";
     MeusGruposComponent,
     ServicesFormComponent,
     ActivateAccountComponent,
-    ToastsContainer
+    ToastsContainer,
+    CreateGroupFormComponent
   ],
   imports: [
     BrowserModule,

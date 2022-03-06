@@ -1,4 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import {ServiceService} from "../../services/service/service.service";
+import {Service} from "../../interfaces/service";
+import {ToastService} from "../../services/toast/toast.service";
+import {CommonService} from "../../services/common/common.service";
+import {ServicesFormComponent} from "../services-form/services-form.component";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
+import {CreateGroupFormComponent} from "../create-group-form/create-group-form.component";
 
 @Component({
   selector: 'app-servicos',
@@ -7,21 +14,36 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CriarGrupoComponent implements OnInit {
 
-  // public groups = [
-  //   {id: 1, service: 'Netflix', auth: 'member', total_vacancies: 2, price: '15'},
-  //   {id: 2, service: 'Amazon Prime', auth: 'member', total_vacancies: 0, price: '7'},
-  //   {id: 3, service: 'Disney+', auth: 'admin', total_vacancies: 3, price: '20'}
-  // ];
+  public services: Service[] = []
 
-  public services = [
-    {id: 1, service: 'Netflix', image: '../../../assets/image/Netflix_logo.png'},
-    {id: 1, service: 'Amazon Prime', image: '../../../assets/image/primevideo_logo.jpg'},
-    {id: 1, service: 'Disney+', image: '../../../assets/image/Disney+_logo.png'}
-  ]
-
-  constructor() { }
+  constructor(
+    private serviceService: ServiceService,
+    private toastService: ToastService,
+    private commonService: CommonService,
+    private modalService: NgbModal
+  ) { }
 
   ngOnInit(): void {
+    this.loadCategories()
+  }
+
+  loadCategories() {
+    this.serviceService.getServices().then(services => {
+      console.log(services)
+      this.services = services.map((service: Service) => {
+        return {
+          ...service,
+          thumbnail: this.commonService.getImageUrl(service.thumbnail, 'services')
+        }
+      })
+    }).catch(() => {
+      this.toastService.showError('Erro ao carregar os grupos');
+    })
+  }
+
+  startCreatingGroup(service: Service) {
+    const modalRef = this.modalService.open(CreateGroupFormComponent, { backdrop: 'static', keyboard: false });
+    modalRef.componentInstance.serviceData = service;
   }
 
 }

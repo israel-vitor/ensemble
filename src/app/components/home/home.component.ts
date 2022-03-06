@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {GroupsService} from "../../services/groups/groups.service";
+import {GroupService} from "../../services/group/group.service";
 import {Group} from "../../interfaces/group";
 import {ToastService} from "../../services/toast/toast.service";
 import {Router} from "@angular/router";
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
   groups: Group[] = []
 
   constructor(
-    private groupService: GroupsService,
+    private groupService: GroupService,
     private authService: AuthService,
     private toastService: ToastService,
     private router: Router
