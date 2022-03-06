@@ -24,6 +24,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.logout()
   }
 
   // TODO: add error handler

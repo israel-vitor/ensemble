@@ -19,6 +19,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesFormComponent } from './components/services-form/services-form.component';
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 import { ToastsContainer } from './components/toasts-container/toasts-container.component';
+import {authInterceptorProviders} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -45,7 +46,7 @@ import { ToastsContainer } from './components/toasts-container/toasts-container.
     HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

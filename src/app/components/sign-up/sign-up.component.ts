@@ -31,6 +31,7 @@ export class SignUpComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.authService.logout()
   }
 
   public signUp(modal: any): void {

@@ -5,8 +5,8 @@ import { BehaviorSubject, Observable, throwError } from 'rxjs';
 import { catchError, filter, switchMap, take } from 'rxjs/operators';
 import {SessionService} from "../services/session/session.service";
 import {AuthService} from "../services/auth/auth.service";
-// const TOKEN_HEADER_KEY = 'Authorization';  // for Spring Boot back-end
-export const TOKEN_HEADER_KEY = 'x-access-token';    // for Node.js Express back-end
+import {Router} from "@angular/router";
+export const TOKEN_HEADER_KEY = 'Authorization';
 
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
@@ -14,9 +14,9 @@ export class AuthInterceptor implements HttpInterceptor {
   private isRefreshing = false;
   private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
 
-  constructor(private sessionService: SessionService, private authService: AuthService) {}
+  constructor(private sessionService: SessionService, private authService: AuthService, private router: Router) {}
 
-  intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<Object>> {
+  intercept(req: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
     let request = req;
     const token = this.sessionService.getToken();
     if (token != null) {
@@ -36,18 +36,18 @@ export class AuthInterceptor implements HttpInterceptor {
       this.refreshTokenSubject.next(null);
       const token = this.sessionService.getRefreshToken();
       if (token)
-        return this.authService.refreshToken(token).pipe(
-          switchMap((token: any) => {
+        return this.authService.refreshToken().pipe(
+          switchMap((response: any) => {
             this.isRefreshing = false;
-            console.log('token refreshing', token)
-            this.sessionService.saveToken(token.accessToken);
-            this.refreshTokenSubject.next(token.accessToken);
+            this.sessionService.saveToken(response.token);
+            this.refreshTokenSubject.next(response.token);
 
-            return next.handle(this.addTokenHeader(request, token.accessToken));
+            return next.handle(this.addTokenHeader(request, response.token));
           }),
           catchError((err) => {
             this.isRefreshing = false;
 
+            this.router.navigate(['/login'])
             this.sessionService.signOut();
             return throwError(err);
           })
@@ -61,10 +61,7 @@ export class AuthInterceptor implements HttpInterceptor {
   }
 
   private addTokenHeader(request: HttpRequest<any>, token: string) {
-    /* for Spring Boot back-end */
-    // return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
-    /* for Node.js Express back-end */
-    return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, token) });
+    return request.clone({ headers: request.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
   }
 }
 
