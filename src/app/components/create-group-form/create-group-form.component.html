@@ -1,0 +1,30 @@
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-basic-title"> Criar Grupo </h4>
+  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+</div>
+<div class="modal-body px-4">
+  <form>
+    <div class="mb-3">
+      <label>Selecione o plano</label>
+      <div class="input-group mt-2">
+        <select class="form-select" [(ngModel)]="planId" name="plan">
+          <option *ngFor="let plan of serviceData.plans" value="1" [value]="plan.id">{{ plan.name }}</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label for="name">Serviço</label>
+      <div class="input-group mt-2">
+        <input [(ngModel)]="serviceData.name" id="name" readonly class="form-control" name="name" type="text">
+      </div>
+    </div>
+
+  </form>
+</div>
+<div class="modal-footer">
+    <div class="actions">
+      <button type="button" class="btn btn-success"> Salvar </button>
+      <button type="button" class="btn btn-danger" (click)="activeModal.dismiss()"> Cancelar </button>
+    </div>
+</div>
