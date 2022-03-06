@@ -17,9 +17,9 @@ const routes: Routes = [
   { path: 'cadastro', component: SignUpComponent },
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'perfil', component: PerfilComponent, canActivate: [AuthGuard] },
-  { path: 'grupo', component: GrupoComponent, canActivate: [AuthGuard] },
-  { path: 'grupo/criar', component: CriarGrupoComponent },
-  { path: 'grupo/meus', component: MeusGruposComponent },
+  { path: 'grupo/:id', component: GrupoComponent, canActivate: [AuthGuard] },
+  { path: 'criar-grupo', component: CriarGrupoComponent, canActivate: [AuthGuard] },
+  { path: 'meus-grupos', component: MeusGruposComponent, canActivate: [AuthGuard] },
   { path: 'admin/servicos', component: ServicosComponent, canActivate: [AuthGuard] },
   { path: 'ativar-conta/:token', component: ActivateAccountComponent }
 ];

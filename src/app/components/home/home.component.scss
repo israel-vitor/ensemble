@@ -13,6 +13,7 @@
     border: 0;
     padding: 40px 10px;
     margin: 20px;
+    cursor: pointer;
     p{
       margin: 0;
     }
@@ -27,7 +28,7 @@
       min-height: calc(100% + 50px);
       h3{
           font-size: 1.5em;
-      } 
+      }
     }
   }
 }

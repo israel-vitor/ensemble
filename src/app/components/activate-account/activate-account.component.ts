@@ -5,7 +5,7 @@ import {ToastService} from "../../services/toast/toast.service";
 
 @Component({
   selector: 'app-activate-account',
-  template: '<app-toasts aria-live="polite" aria-atomic="true"></app-toasts>',
+  template: '',
   styles: []
 })
 export class ActivateAccountComponent implements OnInit {

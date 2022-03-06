@@ -4,6 +4,9 @@ import { Injectable, TemplateRef } from '@angular/core';
 export class ToastService {
   toasts: any[] = [];
 
+  constructor() {
+  }
+
   showSuccess(message: string) {
     const options = {
       classname: 'bg-success text-light',

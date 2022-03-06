@@ -7,125 +7,20 @@
     </div>
   </div>
   <div class="card-group">
-    <div class="col-sm-6 col-md-3 col-lg-3">
-      <div class="card">
-        <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
-        <section class="text-center info">
-          <p> Lucas </p>
-          <h3> Netflix </h3>
-          <p>
-            <span class="fw-bold">2</span> Vagas
-          </p>
-          <p>
-            <span class="fw-bold">30 R$</span> Mês
-          </p>
-        </section>
+      <div class="col-sm-6 col-md-3 col-lg-3" *ngFor="let group of groups">
+        <div class="card" (click)="showDetails(group.id)">
+          <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
+          <section class="text-center info">
+            <p> Lucas </p>
+            <h3> {{ group.description }} </h3>
+            <p>
+              <span class="fw-bold">2</span> Vagas
+            </p>
+            <p>
+              <span class="fw-bold">30 R$</span> Mês
+            </p>
+          </section>
+        </div>
       </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3">
-      <div class="card">
-        <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
-        <section class="text-center">
-          <p> Lucas </p>
-          <h3> Netflix </h3>
-          <p>
-            <span class="fw-bold">2</span> Vagas
-          </p>
-          <p>
-            <span class="fw-bold">30 R$</span> Mês
-          </p>
-        </section>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3">
-      <div class="card">
-        <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
-        <section class="text-center">
-          <p> Lucas </p>
-          <h3> Netflix </h3>
-          <p>
-            <span class="fw-bold">2</span> Vagas
-          </p>
-          <p>
-            <span class="fw-bold">30 R$</span> Mês
-          </p>
-        </section>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3">
-      <div class="card">
-        <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
-        <section class="text-center">
-          <p> Lucas </p>
-          <h3> Netflix </h3>
-          <p>
-            <span class="fw-bold">2</span> Vagas
-          </p>
-          <p>
-            <span class="fw-bold">30 R$</span> Mês
-          </p>
-        </section>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3">
-      <div class="card">
-        <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
-        <section class="text-center">
-          <p> Lucas </p>
-          <h3> Netflix </h3>
-          <p>
-            <span class="fw-bold">2</span> Vagas
-          </p>
-          <p>
-            <span class="fw-bold">30 R$</span> Mês
-          </p>
-        </section>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3">
-      <div class="card">
-        <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
-        <section class="text-center">
-          <p> Lucas </p>
-          <h3> Netflix </h3>
-          <p>
-            <span class="fw-bold">2</span> Vagas
-          </p>
-          <p>
-            <span class="fw-bold">30 R$</span> Mês
-          </p>
-        </section>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3">
-      <div class="card">
-        <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
-        <section class="text-center">
-          <p> Lucas </p>
-          <h3> Netflix </h3>
-          <p>
-            <span class="fw-bold">2</span> Vagas
-          </p>
-          <p>
-            <span class="fw-bold">30 R$</span> Mês
-          </p>
-        </section>
-      </div>
-    </div>
-    <div class="col-sm-6 col-md-3 col-lg-3">
-      <div class="card">
-        <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
-        <section class="text-center">
-          <p> Lucas </p>
-          <h3> Netflix </h3>
-          <p>
-            <span class="fw-bold">2</span> Vagas
-          </p>
-          <p>
-            <span class="fw-bold">30 R$</span> Mês
-          </p>
-        </section>
-      </div>
-    </div>
   </div>
 </div>
