@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import {AuthService} from "./services/auth/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -6,6 +7,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'ensemble';
-  isUserLoggedIn: boolean = false;
+  constructor(public authService: AuthService) {
+  }
 }

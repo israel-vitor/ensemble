@@ -11,10 +11,15 @@ import { HomeComponent } from './components/home/home.component';
 import { PerfilComponent } from './components/perfil/perfil.component';
 import { ServicosComponent } from './components/servicos/servicos.component';
 import { GrupoComponent } from './components/grupo/grupo.component';
+import { CriarGrupoComponent } from './components/criar-grupo/criar-grupo.component';
+import { MeusGruposComponent } from './components/meus-grupos/meus-grupos.component';
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ServicesFormComponent } from './components/services-form/services-form.component';
+import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
+import { ToastsContainer } from './components/toasts-container/toasts-container.component';
+import {authInterceptorProviders} from "./interceptors/auth.interceptor";
 
 @NgModule({
   declarations: [
@@ -26,7 +31,11 @@ import { ServicesFormComponent } from './components/services-form/services-form.
     PerfilComponent,
     ServicosComponent,
     GrupoComponent,
+    CriarGrupoComponent,
+    MeusGruposComponent,
     ServicesFormComponent,
+    ActivateAccountComponent,
+    ToastsContainer
   ],
   imports: [
     BrowserModule,
@@ -37,7 +46,7 @@ import { ServicesFormComponent } from './components/services-form/services-form.
     HttpClientModule,
     NgbModule
   ],
-  providers: [],
+  providers: [authInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

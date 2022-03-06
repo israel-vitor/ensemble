@@ -1,6 +1,23 @@
-.search-field{
-  margin: 120px 0 40px 0;
+.container{
+  margin-top: 120px;
+  .font-2{
+    font-size: 1.2em;
+  }
+  .bg-info-mod{
+    background-color: #23668B;
+  }
+  .no-bg{
+    background-color: transparent;
+    color: #444444;
+  }
+  .no-border{
+    border: 0;
+  }
+  .border-rounded{
+    border-radius: 100px;
+  }
 }
+
 
 .card-group{
   border: 0;
@@ -13,7 +30,6 @@
     border: 0;
     padding: 40px 10px;
     margin: 20px;
-    cursor: pointer;
     p{
       margin: 0;
     }
@@ -26,9 +42,16 @@
     }
     .info{
       min-height: calc(100% + 50px);
+      p{
+        width: 80%;
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden !important;
+        text-overflow: ellipsis;
+      }
       h3{
           font-size: 1.5em;
-      }
+      } 
     }
   }
 }
