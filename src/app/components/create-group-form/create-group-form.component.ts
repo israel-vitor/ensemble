@@ -5,6 +5,7 @@ import {Plan} from "../../interfaces/plan";
 import {GroupService} from "../../services/group/group.service";
 import {Group} from "../../interfaces/group";
 import {ToastService} from "../../services/toast/toast.service";
+import {SessionService} from "../../services/session/session.service";
 
 @Component({
   selector: 'app-create-group-form',
@@ -17,6 +18,7 @@ export class CreateGroupFormComponent implements OnInit {
 
   public planId?: number;
   public serviceId?: number;
+  public user = {sub:'', email:'', name:''}
 
   public groupName?: string;
   public plans: Plan[] = [];
@@ -29,13 +31,14 @@ export class CreateGroupFormComponent implements OnInit {
     public activeModal: NgbActiveModal,
     private groupService: GroupService,
     private toastService: ToastService,
+    private sessionService: SessionService,
   ) {}
 
   ngOnInit(): void {
     this.serviceId = this.serviceData.id
     this.plans = this.serviceData.plans || []
-    // TODO: user the stored user data here to show the user name
-    this.groupName = this.serviceData.name + ' do(a) ' + 'Israel'
+    this.user = this.sessionService.getUser()
+    this.groupName = this.serviceData.name + ' do(a) ' + this.user.name
   }
 
   updatePlan(newValue: any) {
