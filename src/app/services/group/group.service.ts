@@ -20,8 +20,20 @@ export class GroupService {
   constructor(
     private http: HttpClient,
     private commonService: CommonService
-  ) {}
+  ) {}  
+  
+  getAllGroupsUserMember(): Promise<any> {
+    return this.http
+      .get<any>(this.BASE_URL + '/group/user/member', this.httpOptions)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
 
+  getAllGroupsUserAdministrator(): Promise<any> {
+    return this.http
+      .get<any>(this.BASE_URL + '/group/user/administrator', this.httpOptions)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
+  
   getAllGroups(): Promise<any> {
     return this.http
       .get<any>(this.BASE_URL + '/group', this.httpOptions)

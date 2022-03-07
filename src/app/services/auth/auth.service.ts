@@ -40,13 +40,13 @@ export class AuthService {
 
   activate(token: string): Promise<any> {
     return this.http
-      .patch<any>(this.BASE_URL + '/activate/' + token, this.httpOptions)
+      .patch<any>(this.BASE_URL + '/activate/' + token, {}, this.httpOptions)
       .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
   }
 
   refreshToken(): Observable<any> {
     return this.http
-      .patch<any>(this.BASE_URL + '/refresh', this.httpOptions)
+      .post<any>(this.BASE_URL + '/refresh',{}, { withCredentials: true } )
       .pipe(retry(1), catchError(this.commonService.handleError));
   }
 
