@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Router} from "@angular/router";
+import { GroupPagineted } from 'src/app/interfaces/group.pagineted';
+import { CommonService } from 'src/app/services/common/common.service';
+import { GroupService } from 'src/app/services/group/group.service';
+import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-servicos',
@@ -7,26 +11,27 @@ import {Router} from "@angular/router";
   styleUrls: ['./meus-grupos.component.scss']
 })
 export class MeusGruposComponent implements OnInit {
-
-  public owner_groups = [
-    {id: 1, service: 'Amazon Prime', image: '../../../assets/image/primevideo_logo.jpg', group_name:'Grupo Teste de Amazon Prime', price: 14, total_vacancies: 0},
-  ];
-
-  public member_groups = [
-    {id: 1, service: 'Netflix', image: '../../../assets/image/Netflix_logo.png', group_name:'Grupo Teste de Netflix', price: 14, total_vacancies: 2},
-    {id: 1, service: 'Disney+', image: '../../../assets/image/Disney+_logo.png', group_name:'Grupo Teste de Disney+', price: 14, total_vacancies: 3},
-  ];
-
-  public isAdmin:boolean = false; 
+  API_URL = `${environment.apiUrl}/auth`
+  owner_groups: any;
+  member_groups: any;
+  isAdmin:boolean = false; 
 
   constructor(
-    private router: Router
+    private router: Router,
+    private groupService: GroupService,
+    private commonService: CommonService,
   ) { }
 
-  ngOnInit(): void {
+  async ngOnInit(){
+    const pageGroups = await this.groupService.getAllGroupsUserMember();
+    this.member_groups = pageGroups.groups.map((group: GroupPagineted)=>({
+      ...group,
+      thumbnail: this.commonService.getImageUrl(group.service.thumbnail, 'services')
+    }))
+    
   }
 
-  public view_div(div: string): void {
+  async view_div(div: string) {
     const btn_membro = document.getElementById('btn_membro')
     const btn_admin = document.getElementById('btn_admin')
     if(div == 'membro'){
@@ -36,6 +41,12 @@ export class MeusGruposComponent implements OnInit {
       btn_admin?.classList.remove('bg-info-mod')
       btn_admin?.classList.add('no-bg')
     } else if (div == 'admin'){
+      const pageGroups = await this.groupService.getAllGroupsUserAdministrator();
+      this.owner_groups = pageGroups.groups.map((group: GroupPagineted)=>({
+        ...group,
+        thumbnail: this.commonService.getImageUrl(group.service.thumbnail, 'services')
+      }))
+
       this.isAdmin = true
       btn_membro?.classList.remove('bg-info-mod')
       btn_membro?.classList.add('no-bg')

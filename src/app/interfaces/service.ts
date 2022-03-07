@@ -3,10 +3,9 @@ import {Plan} from "./plan";
 
 export interface Service {
   id?: number
-  name?: string,
+  name?: string
   thumbnail?: any
-  category?: Category,
-  plans?: Plan[]
+  categoryId?: number
+  category?: Category
+  plans?: Array<Plan>
 }
-
-

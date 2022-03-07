@@ -15,7 +15,6 @@ export class SignUpComponent implements OnInit {
     email: '',
     document: '',
     name: '',
-    username: '',
     birthDate: '',
     password: ''
   }

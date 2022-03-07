@@ -4,35 +4,28 @@
     <div class="col-md-6 col-sm-12">
       <div class="form-group mb-4">
         <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" placeholder="exemplo@mail.com" readonly>
+        <input [(ngModel)]="update_user.email" type="email" class="form-control" id="email_view" [readonly]="!isEdit">
       </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
       <div class="name-field mb-4">
         <label for="name" class="form-label">Nome</label>
-        <input type="text" class="form-control" id="name" placeholder="John Doe" readonly>
+        <input [(ngModel)]="update_user.name" type="text" class="form-control" id="name_view" [readonly]="!isEdit">
       </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
       <div class="cpf-field mb-4">
         <label for="cpf" class="form-label">CPF</label>
-        <input type="text" class="form-control" id="cpf" placeholder="111.111.111-11" readonly>
-      </div>
-    </div>
-
-    <div class="col-md-6 col-sm-12">
-      <div class="username-field mb-4">
-        <label for="username" class="form-label">Nome de usuário</label>
-        <input type="text" class="form-control" id="username" placeholder="john_doe_12" readonly>
+        <input [(ngModel)]="update_user.document" type="text" class="form-control" id="cpf_view" [readonly]="!isEdit" (keyup)="cpf_mask($event)">
       </div>
     </div>
 
     <div class="col-md-6 col-sm-12">
       <div class="birth-date-field mb-4">
         <label for="birth-date" class="form-label">Data de nascimento</label>
-        <input type="text" class="form-control" id="birth-date" placeholder="02/07/1994" readonly>
+        <input [(ngModel)]="update_user.birthDate" type="date" class="form-control" id="birth-date_view" [readonly]="!isEdit">
       </div>
     </div>
   </div>
@@ -40,18 +33,18 @@
     <div *ngIf="isEdit; then thenBlock else elseBlock"></div>
     <ng-template #thenBlock>
       <div class="col-md-3 col-sm-12">
-        <button type="button" class="btn btn-success"><i class="fa fa-user"></i> Salvar </button>
+        <button type="button" class="btn btn-success" (click)="updatePerfil()"> Salvar </button>
       </div>
       <div class="col-md-3 col-sm-12">
-        <button type="button" class="btn btn-danger"><i class="fa fa-lock"></i> Cancelar </button>
+        <button type="button" class="btn btn-danger" (click)="switchIsEdit('cancel')"> Cancelar Edição </button>
       </div>
     </ng-template>
     <ng-template #elseBlock>
       <div class="col-md-3 col-sm-12">
-        <button type="button" class="btn btn-info"><i class="fa fa-user"></i> Editar Perfil</button>
+        <button type="button" class="btn btn-info" (click)="switchIsEdit('edit')"> Editar Perfil</button>
       </div>
       <div class="col-md-3 col-sm-12">
-        <button type="button" class="btn btn-info"><i class="fa fa-lock"></i> Alterar Senha</button>
+        <button type="button" class="btn btn-info"> Alterar Senha </button>
       </div>
     </ng-template>
     <div class="col-md-6 col-sm-12">

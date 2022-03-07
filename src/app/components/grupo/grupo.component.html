@@ -1,37 +1,35 @@
 <div class="container">
   <div class="card card-info-grupo col-md-12">
     <div class="row">
-      <h3 class="pt-4 ps-4 pe-4 pb-2"> Netflix do Lucas </h3>
+      <h3 class="pt-4 ps-4 pe-4 pb-2"> {{group.name}} </h3>
     </div>
     <div class="details-grupo ps-5">
       <div class="principal-content row mb-4">
         <div class="col-md-2 col-sm-12 center-row">
-          <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
+          <img src="{{thumbnail}}" alt="{{group.service?.name}}">
         </div>
         <div class="center-row col-md-3 col-sm-12">
-          <h1> NETFLIX </h1>
+          <h1> {{group.service?.name}} </h1>
         </div>
         <div class="price center-column col-md-7 col-sm-12">
-          <p class="valor text-end pe-5"> 14,00 </p>
+          <p class="valor text-end pe-5"> {{(group.plan.price / group.plan.usersNumber).toFixed(2)}} </p>
           <p class="text-end descricao-valor pe-5"> por assinante </p>
         </div>
       </div>
       <div class="descricao mb-4">
         <p class="title-section">Descrição</p>
         <p class="text-descricao pe-5">
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer pellentesque neque dolor, scelerisque varius felis interdum non. 
-          Maecenas feugiat metus a lectus pellentesque, et feugiat sem eleifend. Pellentesque tortor sapien, dapibus vel justo eu, facilisis 
-          laoreet ligula. Nullam eu ipsum ante. In hac habitasse platea dictumst.
+          {{group.plan.description}}
         </p>
       </div>
       <div class="vagas pb-2">
-        <p class="title-section"> Vagas Restantes: <span class="valor"> 2 vagas </span> </p>
+        <p class="title-section"> Vagas Restantes: <span class="valor"> {{(group.plan.usersNumber - group.users.length) - 1}} vagas </span> </p>
       </div>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-md-12 col-sm-12 mb-5">
+    <div [ngClass]="{'col-md-12 col-sm-12 mb-5': isOwner}" [ngClass]="{'col-md-7 col-sm-12 mb-5': !isOwner}">
       <div class="card card-info-participantes">
         <div class="row">
           <h3 class="pt-4 ps-4 pe-4 pb-2"> PARTICIPANTES </h3>
@@ -69,17 +67,17 @@
       <div class="card card-valor-final mb-5 pt-4 pb-3 ps-5 pe-5">
         <div class="valor">
           <p class="text-info-valor"> Valor Total </p>
-          <p class="text-valor text-quantidade"> 55,90 </p>
+          <p class="text-valor text-quantidade"> {{group.plan.price}} </p>
         </div>
         <div class="quantidade mb-2">
           <p class="text-info-valor"> Quantidade de Contas</p>
-          <p class="text-quantidade"> 4 </p>
+          <p class="text-quantidade"> {{group.plan.usersNumber}} </p>
         </div>
         <div class="total mb-4">
           <p class="text-info-valor"> Valor Final </p>
-          <p class="text-quantidade"> 14.00 </p>
+          <p class="text-quantidade"> {{(group.plan.price / group.plan.usersNumber).toFixed(2)}} </p>
         </div>
-        <button class="btn btn-success mb-2"> Quero Participar </button>
+        <button class="btn btn-success mb-2" (click)="requestGroup(group_id)"> Quero Participar </button>
       </div>
     </div>
 

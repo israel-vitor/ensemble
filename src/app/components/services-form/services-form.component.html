@@ -1,84 +1,90 @@
 <div class="modal-header">
   <h4 class="modal-title" id="modal-basic-title">{{ modalTitle }}</h4>
-  <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
+  <button type="button" class="btn-close" aria-label="Close" (click)="cancel()"></button>
 </div>
 <div class="modal-body px-4">
-  <form>
+  <form #myForm="ngForm">
     <div class="mb-3">
       <label for="name">Nome</label>
       <div class="input-group mt-2">
-        <input [(ngModel)]="name" id="name" class="form-control" name="name" type="text">
+        <input [(ngModel)]="service.name" id="name" class="form-control" name="name" type="text" required>
       </div>
     </div>
 
     <div class="mb-3">
-      <label for="logo">Logo</label>
+      <label for="thumbnail">Image</label>
       <div class="input-group mt-2">
-        <input [(ngModel)]="logo" id="logo" class="form-control" name="logo" type="file" accept="image/png">
+        <input id="thumbnail" class="form-control" name="thumbnail" type="file" accept="image/png, image/gif, image/jpeg" required (change)="onImageSelect($event)">
+      </div>
+      <div *ngIf="editMode">
+        <p class="mt-2 mb-1">Selected image</p>
+        <img class="image-preview" src="{{ service.thumbnail }}" alt="{{ service.name }}">
       </div>
     </div>
 
-    <div class="mb-3">
-      <label for="logo">Tipo de serviço</label>
+    <div>
+      <label>Tipo de serviço</label>
       <div class="input-group mt-2">
-        <select class="form-select" [(ngModel)]="categoryId">
+        <select class="form-select" [(ngModel)]="service.categoryId" name="categoryId" required>
           <option *ngFor="let category of categories" value="1" [value]="category.id">{{ category.description }}</option>
         </select>
       </div>
     </div>
 
-    <div class="plan-list mt-5">
-      <div class="plan-container">
-        <div class="plan-header">
-          Plano 1
-          <i class="fa fa-trash exclude-plan" title="Excluir plano"></i>
-        </div>
-        <div class="card">
-          <div class="my-3">
-            <label>Nome do plano</label>
-            <div class="input-group mt-2">
-              <input class="form-control" type="text">
-            </div>
+    <div id="plans">
+      <div class="plan-list mt-5">
+        <div class="plan-container mb-4" *ngFor="let plan of service.plans; let index = index">
+          <div class="plan-header">
+            Plano
+            <i class="fa fa-trash exclude-plan text-red" (click)="removePlan(index)" title="Excluir plano"></i>
           </div>
-          <div class="row mb-3">
-            <div class="col-6">
-              <label>Quantidade de usuários</label>
+          <div class="card">
+            <div class="my-3">
+              <label>Nome</label>
               <div class="input-group mt-2">
-                <input class="form-control" type="number">
+                <input [(ngModel)]="plan.name" class="form-control" type="text" required [name]="'planName' + index">
               </div>
             </div>
-            <div class="col-6">
-              <label>Valor total</label>
-              <div class="input-group mt-2">
-                <input class="form-control" type="text">
+            <div class="row mb-3">
+              <div class="col-6">
+                <label>Quantidade de usuários</label>
+                <div class="input-group mt-2">
+                  <input [(ngModel)]="plan.usersNumber" class="form-control" type="number" required [name]="'usersNumber' + index">
+                </div>
+              </div>
+              <div class="col-6">
+                <label>Valor total</label>
+                <div class="input-group mt-2">
+                  <input [(ngModel)]="plan.price" class="form-control" type="text" required [name]="'price' + index">
+                </div>
               </div>
             </div>
-          </div>
-          <div class="mb-3">
-            <label>Descrição</label>
-            <div class="input-group mt-2">
-              <textarea class="form-control" type="text"></textarea>
+            <div class="mb-3">
+              <label>Descrição</label>
+              <div class="input-group mt-2">
+                <textarea [(ngModel)]="plan.description" class="form-control" type="text" required [name]="'description' + index"></textarea>
+              </div>
             </div>
           </div>
         </div>
       </div>
     </div>
 
-    <button type="button" class="btn d-md-block btn-secondary add-plan"> Adicionar plano </button>
+    <button type="button" id="btn-add-plan" class="btn d-md-block btn-secondary add-plan" (click)="addPlan()"> Adicionar plano </button>
   </form>
 </div>
 <div class="modal-footer">
   <div *ngIf="editMode; then ifBlock else elseBlock"></div>
   <ng-template #ifBlock>
     <div class="actions">
-      <button type="button" class="btn btn-danger"> Excluir </button>
-      <button type="button" class="btn btn-success"> Salvar </button>
+      <button type="button" class="btn btn-danger" (click)="deleteService()"> Excluir </button>
+      <button type="button" class="btn btn-success" [disabled]="myForm.invalid || !service.thumbnail || isLoading" (click)="updateService()"> Salvar </button>
     </div>
   </ng-template>
   <ng-template #elseBlock>
       <div class="actions">
-        <button type="button" class="btn btn-danger" (click)="activeModal.dismiss()"> Cancelar </button>
-        <button type="button" class="btn btn-success"> Salvar </button>
+        <button type="button" class="btn btn-danger" (click)="cancel()"> Cancelar </button>
+        <button type="button" class="btn btn-success" [disabled]="myForm.invalid || !service.thumbnail || isLoading" (click)="saveService()"> Salvar </button>
       </div>
   </ng-template>
 </div>

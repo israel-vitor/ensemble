@@ -9,15 +9,15 @@
   <div class="card-group">
       <div class="col-sm-6 col-md-3 col-lg-3" *ngFor="let group of groups">
         <div class="card" (click)="showDetails(group.id)">
-          <img src="../../../assets/image/Netflix_logo.png" alt="Netflix">
+          <img src="{{group.service?.thumbnail}}" alt="Netflix">
           <section class="text-center info">
-            <p> {{ group.owner.name }} </p>
-            <h3> {{ group.description }} </h3>
+            <p> {{ group.name }} </p>
+            <h3> {{ group.service?.name }} </h3>
             <p>
-              <span class="fw-bold">2</span> Vagas
+              <span class="fw-bold">{{group.usersLeft}}</span> Vagas
             </p>
             <p>
-              <span class="fw-bold">30 R$</span> Mês
+              <span class="fw-bold">R$ {{group.price}}</span> Mês
             </p>
           </section>
         </div>

@@ -1,15 +1,20 @@
 export interface Group {
-  id: number
-  description: string
-  ownerId: number
-  owner: {
+  id?: number
+  name?: string
+  description?: string
+  ownerId?: number
+  planId?: number
+  serviceId?: number
+  owner?: {
     name: string
     thumbnail: any
   }
-  service: {
+  service?: {
     name: string
     thumbnail: any
   }
+  price?: number
+  usersLeft?: number
   createdAt?: string
   updatedAt?: string
 }
