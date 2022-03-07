@@ -56,6 +56,12 @@ export class AuthService {
       .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
   }
 
+  getInfo(): Promise<any> {
+    return this.http
+      .get<any>(`${this.BASE_URL}/info`, this.httpOptions)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
+
   updateUser(user: User): Promise<any> {
     return this.http
       .patch<any>(`${environment.apiUrl}/users/update`, JSON.stringify(user), this.httpOptions)

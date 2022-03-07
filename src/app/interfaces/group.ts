@@ -13,6 +13,8 @@ export interface Group {
     name: string
     thumbnail: any
   }
+  price?: number
+  usersLeft?: number
   createdAt?: string
   updatedAt?: string
 }

@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.user).then(data => {
       this.sessionService.saveToken(data.token);
       this.sessionService.saveRefreshToken(data.token);
+      this.authService.getInfo().then(data => {
+        this.sessionService.saveUser(data)
+      })
       this.router.navigate(['/home'])
     }).catch((e) => {
       this.toastService.showError('Houve um erro ao realizar o login!');

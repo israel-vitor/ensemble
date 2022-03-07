@@ -3,7 +3,7 @@ import {GroupService} from "../../services/group/group.service";
 import {Group} from "../../interfaces/group";
 import {ToastService} from "../../services/toast/toast.service";
 import {Router} from "@angular/router";
-import {AuthService} from "../../services/auth/auth.service";
+import { CommonService } from 'src/app/services/common/common.service';
 
 @Component({
   selector: 'app-home',
@@ -16,9 +16,9 @@ export class HomeComponent implements OnInit {
 
   constructor(
     private groupService: GroupService,
-    private authService: AuthService,
     private toastService: ToastService,
-    private router: Router
+    private router: Router,
+    private commonService: CommonService,
   ) { }
 
   ngOnInit(): void {
@@ -27,8 +27,16 @@ export class HomeComponent implements OnInit {
 
   loadGroups() {
     this.groupService.getAllGroups().then(({groups}) => {
-      console.log(groups)
-      this.groups = groups
+      this.groups = groups.map((group: Group) => {
+        console.log(group)
+        return {
+          ...group,
+          service: {
+            ...group.service, 
+            thumbnail: this.commonService.getImageUrl(group?.service?.thumbnail, 'services')
+          },
+        }
+      }).filter(({usersLeft = 0}) => usersLeft > 0)
     }).catch(() => {
       this.toastService.showError('Erro ao carregar os grupos');
     })
