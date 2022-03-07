@@ -34,7 +34,7 @@ export class HomeComponent implements OnInit {
     })
   }
 
-  showDetails(groupId: number) {
+  showDetails(groupId?: number) {
     this.router.navigate([`/grupo/${groupId}`])
   }
 
