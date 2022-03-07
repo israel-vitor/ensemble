@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Router} from "@angular/router";
 import { Service } from "../../interfaces/service";
-import { Plan } from "../../interfaces/plan";
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Category } from "../../interfaces/category";
 import {ServiceService} from "../../services/service/service.service";
 import {ToastService} from "../../services/toast/toast.service";
+import {CategoryService} from "../../services/category/category.service";
+import {Plan} from "../../interfaces/plan";
 
 @Component({
   selector: 'app-services-form',
@@ -17,90 +17,77 @@ export class ServicesFormComponent implements OnInit {
   @Input() editMode: boolean = false;
   @Input() serviceData: Service = {};
 
-  plan_id = 1
-  name: string = ''
-  logo: any
-  categoryId: number = 0
-  plans: Array<Plan> = []
   modalTitle: string = ''
-  categories: Category[] = [
-    { description: 'Filmes', id: 1 },
-    { description: 'Música', id: 2 }
-  ]
 
-  //plans (gambiarra)
-  plan_name_1: string = ''
-  plan_name_2: string = ''
-  plan_name_3: string = ''
-  plan_name_4: string = ''
-  plan_name_5: string = ''
-  plan_description_1: string = ''
-  plan_description_2: string = ''
-  plan_description_3: string = ''
-  plan_description_4: string = ''
-  plan_description_5: string = ''
-  plan_value_1: number = 0
-  plan_value_2: number = 0
-  plan_value_3: number = 0
-  plan_value_4: number = 0
-  plan_value_5: number = 0
-  plan_total_members_1: number = 0
-  plan_total_members_2: number = 0
-  plan_total_members_3: number = 0
-  plan_total_members_4: number = 0
-  plan_total_members_5: number = 0
+  service: Service = {
+    name: undefined,
+    logo: undefined,
+    categoryId: undefined,
+    plans: [this.generatePlan()]
+  }
+
+  categories: Category[] = []
 
   constructor(
     public activeModal: NgbActiveModal,
     private serviceService: ServiceService,
     private toastService: ToastService,
-    private router: Router
+    private categoryService: CategoryService,
   ) { }
 
   ngOnInit(): void {
     this.modalTitle = this.editMode ? 'Editar Serviço' : 'Novo Serviço'
+    this.loadCategories()
+  }
+
+  loadCategories() {
+    this.categoryService.getAllCategories().then(categories => {
+      this.categories = categories
+    })
   }
 
   saveService(): void{
     const service = {
-      name: this.name,
-      categoryId: this.categoryId,
-      plans: this.plans,
+      name: this.service.name,
+      categoryId: Number(this.service.categoryId),
+      plans: this.service.plans?.map(plan => {
+        return {
+          ...plan,
+          price: Number(plan.price) || 0
+        }
+      }),
     }
-    this.serviceService.create(service).then(() => {
-      this.toastService.showSuccess('Serviço criado com sucesso');
-      this.router.navigate(['/admin/servicos'])
+    this.serviceService.create(service).then(async (response) => {
+      // TODO: remove this when felipe fix the new service response
+      const newService = response.find((service: any) => service.name === this.service.name)
+      if (this.service.logo) {
+        await this.serviceService.addImage(this.service.logo, newService.id)
+        this.toastService.showSuccess('Serviço criado com sucesso');
+      }
+      this.activeModal.close('refresh')
     }).catch(() => {
       this.toastService.showError('Ocorreu um erro ao realizar seu cadastro');
     })
   }
 
-  addPlan():void{
-    if(this.plan_id <= 10){
-      document.getElementById(`plan-${++this.plan_id}`)?.classList.remove('display-none')
-      const btn = document.getElementById('btn-add-plan')
-      if(btn){
-        console.log(this.plan_id)
-        if(this.plan_id >= 10){
-          btn.classList.add('display-none')
-        } else {
-          btn.classList.remove('display-none')
-        }
-      } 
-    }
+  onImageSelect(event: any) {
+    this.service.logo = event.target.files[0];
   }
 
-  removePlan(id: number):void{
-    document.getElementById(`plan-${id}`)?.classList.add('display-none')
-    this.plan_id--
-    const btn = document.getElementById('btn-add-plan')
-    if(btn){
-      console.log(this.plan_id)
-      if(this.plan_id >= 10){
-        btn.classList.add('display-none')
-      } else {
-        btn.classList.remove('display-none')
-      }
-    } 
+  addPlan(): void {
+    this.service.plans?.push(this.generatePlan())
+  }
+
+  removePlan(index: number):void{
+    this.service.plans?.splice(index, 1)
+  }
+
+  generatePlan(): Plan {
+    return {
+      name: undefined,
+      usersNumber: undefined,
+      price: undefined,
+      description: undefined
+    }
   }
 }

@@ -23,17 +23,21 @@ export class ServicosComponent implements OnInit {
   public services: Service[] = []
 
   ngOnInit(): void {
-    this.loadCategories()
+    this.loadServices()
   }
 
   addService() {
     const modalRef = this.modalService.open(ServicesFormComponent, { backdrop: 'static', keyboard: false });
     // modalRef.componentInstance.editMode = true;
+    modalRef.result.then(result => {
+      if(result === 'refresh') {
+        this.loadServices()
+      }
+    })
   }
 
-  loadCategories() {
+  loadServices() {
     this.serviceService.getServices().then(services => {
-      console.log(services)
       this.services = services.map((service: Service) => {
         return {
           ...service,

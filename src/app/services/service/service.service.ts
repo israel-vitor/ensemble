@@ -33,4 +33,12 @@ export class ServiceService {
       .post<any>(this.BASE_URL + '/service', service, this.httpOptions)
       .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
   }
+
+  addImage(image: any, serviceId: number): Promise<any> {
+    const payload = new FormData()
+    payload.set('thumbnail', image)
+    return this.http
+      .post<any>(this.BASE_URL + '/service/thumbnail/' + serviceId, payload)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
 }
