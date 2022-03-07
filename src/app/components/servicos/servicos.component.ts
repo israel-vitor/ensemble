@@ -36,6 +36,17 @@ export class ServicosComponent implements OnInit {
     })
   }
 
+  editService(service: Service) {
+    const modalRef = this.modalService.open(ServicesFormComponent, { backdrop: 'static', keyboard: false });
+    modalRef.componentInstance.editMode = true;
+    modalRef.componentInstance.serviceData = service;
+    modalRef.result.then(result => {
+      if(result === 'refresh') {
+        this.loadServices()
+      }
+    })
+  }
+
   loadServices() {
     this.serviceService.getServices().then(services => {
       this.services = services.map((service: Service) => {
