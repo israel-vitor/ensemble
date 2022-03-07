@@ -6,7 +6,5 @@ export interface Service {
   name?: string,
   thumbnail?: any
   category?: Category,
-  plans?: Plan[]
+  plans?: Array<Plan>
 }
-
-

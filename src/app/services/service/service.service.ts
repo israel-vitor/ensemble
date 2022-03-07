@@ -3,6 +3,7 @@ import {catchError, retry} from "rxjs/operators";
 import {environment} from "../../../environments/environment";
 import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {CommonService} from "../common/common.service";
+import { Service } from 'src/app/interfaces/service';
 
 @Injectable({
   providedIn: 'root'
@@ -24,6 +25,12 @@ export class ServiceService {
   getServices(): Promise<any> {
     return this.http
       .get<any>(this.BASE_URL + '/service', this.httpOptions)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
+
+  create(service: any): Promise<any> {
+    return this.http
+      .post<any>(this.BASE_URL + '/service', service, this.httpOptions)
       .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
   }
 }
