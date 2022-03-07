@@ -50,6 +50,18 @@ export class AuthService {
       .pipe(retry(1), catchError(this.commonService.handleError));
   }
 
+  getUserInfo(): Promise<any> {
+    return this.http
+      .get<any>(`${environment.apiUrl}/users/logged`, this.httpOptions)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
+
+  updateUser(user: User): Promise<any> {
+    return this.http
+      .patch<any>(`${environment.apiUrl}/users/update`, JSON.stringify(user), this.httpOptions)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
+
   public isAuthenticated() {
     const token = this.sessionService.getToken();
     return token !== null;

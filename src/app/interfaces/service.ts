@@ -5,13 +5,13 @@ export interface Service {
   name?: string,
   thumbnail?: any
   category?: Category,
-  plans?: Plan[]
+  plans?: Array<Plan>
 }
 
 interface Plan {
-  id: number
-  name: string
-  description: string
-  price: number,
-  usersNumber: number
+  id?: number
+  name?: string
+  description?: string
+  price?: number,
+  usersNumber?: number
 }
