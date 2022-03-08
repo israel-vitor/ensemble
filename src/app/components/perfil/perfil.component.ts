@@ -28,7 +28,7 @@ export class PerfilComponent implements OnInit {
   }
 
   constructor(
-    private authService: AuthService, 
+    private authService: AuthService,
     private router: Router,
     private toastService: ToastService
   ) { }
@@ -55,7 +55,6 @@ export class PerfilComponent implements OnInit {
   public switchIsEdit(func: string): void{
     this.isEdit = !this.isEdit
     if(func == 'cancel'){
-      console.log(this.storage_user)
       this.update_user = {...this.storage_user};
     }
   }
@@ -136,6 +135,6 @@ export class PerfilComponent implements OnInit {
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d)/, '$1.$2')
       .replace(/(\d{3})(\d{1,2})/, '$1-$2')
-      .replace(/(-\d{2})\d+?$/, '$1') 
+      .replace(/(-\d{2})\d+?$/, '$1')
   }
 }

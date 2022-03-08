@@ -40,7 +40,6 @@ export class ServicesFormComponent implements OnInit {
   ngOnInit(): void {
     this.modalTitle = this.editMode ? 'Editar Serviço' : 'Novo Serviço'
     if (Object.keys(this.serviceData).length) {
-      console.log(this.serviceData)
       this.service = {
         ...this.serviceData,
         categoryId: this.serviceData.category?.id
