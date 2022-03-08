@@ -38,7 +38,8 @@ export class CreateGroupFormComponent implements OnInit {
     this.serviceId = this.serviceData.id
     this.plans = this.serviceData.plans || []
     this.user = this.sessionService.getUser()
-    this.groupName = this.serviceData.name + ' do(a) ' + this.user.name
+    const [userFirstName = ''] = this.user.name.split(' ')
+    this.groupName = this.serviceData.name + ' do(a) ' + userFirstName
   }
 
   updatePlan(newValue: any) {

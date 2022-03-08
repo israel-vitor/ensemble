@@ -49,4 +49,9 @@ export class SessionService {
   signOut(): void {
     window.sessionStorage.clear();
   }
+
+  public isAdmin() {
+    const { roles = [] } = this.getUser()
+    return roles.includes('Admin')
+  }
 }

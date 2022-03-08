@@ -13,6 +13,8 @@ import { CommonService } from 'src/app/services/common/common.service';
 export class GrupoComponent implements OnInit {
 
   isOwner: boolean = true;
+  requestedGroup: boolean = false
+  requestType: string = ''
   group_id: string = ''
   group = {
     name: '',
@@ -25,7 +27,7 @@ export class GrupoComponent implements OnInit {
       usersNumber: 1
     },
     owner: {
-      id: 0
+      id: ''
     },
     users: [{}]
   }
@@ -34,11 +36,15 @@ export class GrupoComponent implements OnInit {
     sub: -1,
     email: ''
   }
-
-  public users = [
-    {id: 1, name: 'Gabriel', accept: true},
-    {id: 2, name: 'Pedro', accept: false},
-    {id: 3, name: 'Julia', accept: false}
+  request_users = [
+    {
+      id: 0,
+      status: 'R', 
+      user: {
+        id: -1,
+        name: ''
+      }
+    },
   ];
 
   constructor(
@@ -54,17 +60,15 @@ export class GrupoComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadGroup()
-    this.verifyOwner()
-    if(this.isOwner){
-      this.verifyRequests()
-    }
   }
 
   public loadGroup(): void{
     this.groupService.getGroupById(this.group_id).then((group) => {
       this.group = group
-      console.log(group)
+      this.request_users = group.requests
       this.thumbnail = this.commonService.getImageUrl(group.service.thumbnail, 'services')
+      this.verifyOwner()
+      this.verifyRequest(group)
     }).catch(() => {
       this.toastService.showError('Erro ao carregar o grupo')
     })
@@ -72,10 +76,18 @@ export class GrupoComponent implements OnInit {
 
   public verifyOwner(){
     this.user = this.sessionService.getUser()
-    if(this.user.sub == this.group.owner.id){
+    if(this.user.sub == parseInt(this.group.owner.id)){
       this.isOwner = true
     } else {
       this.isOwner = false
+    }
+  }
+
+  public verifyRequest(group: any){
+    this.requestedGroup = group.hasRequest
+    if(this.requestedGroup){
+      const data_user = this.request_users.filter( req => req.user.id == this.user.sub)
+      if(data_user.length) this.requestType = data_user[0].status
     }
   }
 
@@ -89,11 +101,23 @@ export class GrupoComponent implements OnInit {
     })
   }
 
-  public verifyRequests(){
-    this.groupService.getRequestGroup(this.group_id).then((requests) => {
-      console.log(requests)
+  public acceptRequest(id:string, name:string){
+    this.groupService.acceptRequest(id).then(() => {
+      this.toastService.showSuccess(`Solicitação de ${name} aceita!`)
     }).catch((e) => {
       this.toastService.showError(e)
+    }).finally(() => {
+      location.reload()
+    })
+  }
+
+  public recuseRequest(id:string, name:string){
+    this.groupService.recuseRequest(id).then(() => {
+      this.toastService.showSuccess(`Solicitação de ${name} recusada!`)
+    }).catch((e) => {
+      this.toastService.showError(e)
+    }).finally(() => {
+      location.reload()
     })
   }
 }
