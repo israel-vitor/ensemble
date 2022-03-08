@@ -28,11 +28,10 @@ export class HomeComponent implements OnInit {
   loadGroups() {
     this.groupService.getAllGroups().then(({groups}) => {
       this.groups = groups.map((group: Group) => {
-        console.log(group)
         return {
           ...group,
           service: {
-            ...group.service, 
+            ...group.service,
             thumbnail: this.commonService.getImageUrl(group?.service?.thumbnail, 'services')
           },
         }
