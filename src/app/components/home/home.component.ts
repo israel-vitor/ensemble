@@ -31,7 +31,7 @@ export class HomeComponent implements OnInit {
         return {
           ...group,
           service: {
-            ...group.service, 
+            ...group.service,
             thumbnail: this.commonService.getImageUrl(group?.service?.thumbnail, 'services')
           },
         }

@@ -1,11 +1,11 @@
 import { Component, OnInit, Input } from '@angular/core';
-import {Router} from "@angular/router";
 import { Service } from "../../interfaces/service";
-import { Plan } from "../../interfaces/plan";
-import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 import { Category } from "../../interfaces/category";
 import {ServiceService} from "../../services/service/service.service";
 import {ToastService} from "../../services/toast/toast.service";
+import {CategoryService} from "../../services/category/category.service";
+import {Plan} from "../../interfaces/plan";
 
 @Component({
   selector: 'app-services-form',
@@ -17,88 +17,139 @@ export class ServicesFormComponent implements OnInit {
   @Input() editMode: boolean = false;
   @Input() serviceData: Service = {};
 
-  plan_id = 1
-  name: string = ''
-  logo: any
-  categoryId: number = 0
-  plans: Array<Plan> = []
   modalTitle: string = ''
-  categories: Category[] = [
-    { description: 'Filmes', id: 1 },
-    { description: 'Música', id: 2 }
-  ]
 
-  //plans (gambiarra)
-  plan_name_1: string = ''
-  plan_name_2: string = ''
-  plan_name_3: string = ''
-  plan_name_4: string = ''
-  plan_name_5: string = ''
-  plan_description_1: string = ''
-  plan_description_2: string = ''
-  plan_description_3: string = ''
-  plan_description_4: string = ''
-  plan_description_5: string = ''
-  plan_value_1: number = 0
-  plan_value_2: number = 0
-  plan_value_3: number = 0
-  plan_value_4: number = 0
-  plan_value_5: number = 0
-  plan_total_members_1: number = 0
-  plan_total_members_2: number = 0
-  plan_total_members_3: number = 0
-  plan_total_members_4: number = 0
-  plan_total_members_5: number = 0
+  service: Service = {
+    name: undefined,
+    thumbnail: undefined,
+    categoryId: undefined,
+    plans: [this.generatePlan()]
+  }
+
+  categories: Category[] = []
+
+  isLoading: Boolean =  false
 
   constructor(
     public activeModal: NgbActiveModal,
     private serviceService: ServiceService,
     private toastService: ToastService,
-    private router: Router
+    private categoryService: CategoryService,
   ) { }
 
   ngOnInit(): void {
     this.modalTitle = this.editMode ? 'Editar Serviço' : 'Novo Serviço'
+    if (Object.keys(this.serviceData).length) {
+      this.service = {
+        ...this.serviceData,
+        categoryId: this.serviceData.category?.id
+      }
+    }
+    this.loadCategories()
+  }
+
+  loadCategories() {
+    this.categoryService.getAllCategories().then(categories => {
+      this.categories = categories
+    })
   }
 
   saveService(): void{
     const service = {
-      name: this.name,
-      categoryId: this.categoryId,
-      plans: this.plans,
+      name: this.service.name,
+      categoryId: Number(this.service.categoryId),
+      plans: this.service.plans?.map(plan => {
+        return {
+          ...plan,
+          price: Number(plan.price) || 0
+        }
+      }),
     }
-    this.serviceService.create(service).then(() => {
+    this.isLoading = true
+    this.serviceService.create(service).then(async newService => {
+      if (this.service.thumbnail) {
+        await this.serviceService.addImage(this.service.thumbnail, newService.id)
+      }
       this.toastService.showSuccess('Serviço criado com sucesso');
-      this.router.navigate(['/admin/servicos'])
+      this.activeModal.close('refresh')
     }).catch(() => {
-      this.toastService.showError('Ocorreu um erro ao realizar seu cadastro');
+      this.toastService.showError('Ocorreu um erro ao cadastrar o serviço');
+    }).finally(() => {
+      this.isLoading = false
     })
   }
 
-  addPlan():void{
-    if(this.plan_id <= 10){
-      document.getElementById(`plan-${++this.plan_id}`)?.classList.remove('display-none')
-      const btn = document.getElementById('btn-add-plan')
-      if(btn){
-        if(this.plan_id >= 10){
-          btn.classList.add('display-none')
-        } else {
-          btn.classList.remove('display-none')
+  updateService(): void{
+    const service = {
+      name: this.service.name,
+      categoryId: Number(this.service.categoryId),
+      plans: this.service.plans?.map(plan => {
+        return {
+          ...plan,
+          price: Number(plan.price) || 0
         }
-      } 
+      }),
+    }
+    this.isLoading = true
+    this.serviceService.update(service, this.service.id).then(async () => {
+      if (this.service.thumbnail && typeof this.service.thumbnail !== 'string') {
+        await this.serviceService.addImage(this.service.thumbnail, this.service.id)
+      }
+      this.toastService.showSuccess('Serviço atualizado com sucesso');
+      this.activeModal.close('refresh')
+    }).catch(() => {
+      this.toastService.showError('Ocorreu um erro ao atualizar o serviço');
+    }).finally(() => {
+      this.isLoading = false
+    })
+  }
+
+  onImageSelect(event: any) {
+    this.service.thumbnail = event.target.files[0];
+  }
+
+  addPlan(): void {
+    if(this.isLoading) {
+      return
+    }
+    this.service.plans?.push(this.generatePlan())
+  }
+
+  removePlan(index: number):void{
+    if(this.isLoading) {
+      return
+    }
+    this.service.plans?.splice(index, 1)
+  }
+
+  generatePlan(): Plan {
+    return {
+      name: undefined,
+      usersNumber: undefined,
+      price: undefined,
+      description: undefined
     }
   }
 
-  removePlan(id: number):void{
-    document.getElementById(`plan-${id}`)?.classList.add('display-none')
-    this.plan_id--
-    const btn = document.getElementById('btn-add-plan')
-    if(btn){
-      if(this.plan_id >= 10){
-        btn.classList.add('display-none')
-      } else {
-        btn.classList.remove('display-none')
-      }
-    } 
+  deleteService() {
+    if(this.isLoading) {
+      return
+    }
+    this.isLoading = true
+    this.serviceService.delete(this.service.id).then(() => {
+      this.toastService.showSuccess('Serviço excluído com sucesso');
+      this.activeModal.close('refresh')
+    }).catch(() => {
+      this.toastService.showError('Ocorreu um erro ao excluir seu serviço');
+    }).finally(() => {
+      this.isLoading = false
+    })
+  }
+
+  cancel() {
+    if(this.isLoading) {
+      return
+    }
+    this.activeModal.close('cancel')
   }
 }

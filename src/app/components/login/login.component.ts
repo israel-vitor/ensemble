@@ -30,15 +30,15 @@ export class LoginComponent implements OnInit {
     this.authService.logout()
   }
 
-  // TODO: add error handler
   public login(): void {
-    this.authService.login(this.user).then(data => {
+    this.authService.login(this.user).then(async data => {
       this.sessionService.saveToken(data.token);
       this.sessionService.saveRefreshToken(data.token);
-      this.authService.getInfo().then(data => {
-        this.sessionService.saveUser(data)
-      })
-      this.router.navigate(['/home'])
+      const userData = await this.authService.getInfo()
+      const { roles = [] } = userData
+      const isAdmin = roles.includes('Admin')
+      this.sessionService.saveUser(userData)
+      isAdmin ? this.router.navigate(['/admin/servicos']) : this.router.navigate(['/home'])
     }).catch((e) => {
       this.toastService.showError('Houve um erro ao realizar o login!');
     });
