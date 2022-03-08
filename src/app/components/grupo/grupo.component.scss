@@ -80,9 +80,6 @@
 
   .card-info-participantes{
     padding: 0px 10px 10px 10px;
-    .bg-info-mod{
-      background-color: #23668B;
-    }
     h3{
       font-size: 1.5em;
       color: #444444;
@@ -125,5 +122,16 @@
       color: #D63434;
       font-weight: bold;
     }
+  }
+
+  .bg-info-mod{
+    text-align: center;
+    background-color: #23668B !important;
+  }
+  .text-white{
+    color: #FFFFFF !important;
+  }
+  .pointer{
+    cursor: pointer;
   }
 }

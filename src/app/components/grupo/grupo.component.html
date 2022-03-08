@@ -36,23 +36,23 @@
         </div>
         <div class="details-participantes ps-5">
           <ul>
-            <li *ngFor="let user of users">
-              <div class="row" *ngIf="isOwner || user.accept">
+            <li *ngFor="let user of request_users">
+              <div class="row" *ngIf="isOwner || user.status != 'P'">
                 <div class="col-md-6 user">
                   <i class="fa fa-user icon-perfil pe-3"></i>
-                  <p>{{ user.name }}</p> 
+                  <p>{{ user.user.name }}</p> 
                 </div>
                 <div class="col-md-6" *ngIf="isOwner">
-                  <div *ngIf="user.accept; then jaParticipante else naoParticipante"></div>
+                  <div *ngIf="user.status != 'P'; then jaParticipante else naoParticipante"></div>
                   <ng-template #jaParticipante>
                     <div class="float-md-end float-lg-end float-xl-end float-xxl-end">
-                      <a href=""><span class="badge ps-4 pe-4 bg-info-mod">Já participante</span></a>
+                      <span class="badge ps-4 pe-4 bg-info-mod">Já participante</span>
                     </div>
                   </ng-template>
                   <ng-template #naoParticipante>
                     <div class="float-md-end float-lg-end float-xl-end float-xxl-end">
-                      <a href=""><span class="badge ps-4 pe-4 bg-danger me-2">Recusar solicitação</span></a>
-                      <a href=""><span class="badge ps-4 pe-4 bg-success">Aceitar solicitacao</span></a>
+                      <span class="badge ps-4 pe-4 bg-danger pointer me-2" (click)="recuseRequest(user.id.toString(), user.user.name)">Recusar solicitação</span>
+                      <span class="badge ps-4 pe-4 bg-success pointer" (click)="acceptRequest(user.id.toString(), user.user.name)">Aceitar solicitacao</span>
                     </div>
                   </ng-template>
                 </div>
@@ -77,7 +77,8 @@
           <p class="text-info-valor"> Valor Final </p>
           <p class="text-quantidade"> {{(group.plan.price / group.plan.usersNumber).toFixed(2)}} </p>
         </div>
-        <button class="btn btn-success mb-2" (click)="requestGroup(group_id)"> Quero Participar </button>
+        <button class="btn btn-success mb-2" (click)="requestGroup(group_id)" *ngIf="requestedGroup">Quero Participar</button>
+        <div class="alert alert-info bg-info-mod text-white" role="alert" *ngIf="!requestedGroup">Uma solicitação já foi enviada!</div>
       </div>
     </div>
 
