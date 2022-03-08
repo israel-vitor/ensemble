@@ -6,6 +6,7 @@ import { retry, catchError } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 import {SessionService} from "../session/session.service";
 import {CommonService} from "../common/common.service";
+import {TOKEN_HEADER_KEY} from "../../interceptors/auth.interceptor";
 
 @Injectable({
   providedIn: 'root'
@@ -44,9 +45,15 @@ export class AuthService {
       .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
   }
 
-  refreshToken(): Observable<any> {
+  refreshToken(refreshToken: any): Observable<any> {
+    const httpOptions = {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        [TOKEN_HEADER_KEY]: 'Bearer '+ refreshToken
+      }),
+    };
     return this.http
-      .post<any>(this.BASE_URL + '/refresh',{}, { withCredentials: true } )
+      .post<any>(this.BASE_URL + '/refresh',{}, httpOptions )
       .pipe(retry(1), catchError(this.commonService.handleError));
   }
 

@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
   public login(): void {
     this.authService.login(this.user).then(async data => {
       this.sessionService.saveToken(data.token);
-      this.sessionService.saveRefreshToken(data.token);
+      this.sessionService.saveRefreshToken(data.refreshToken);
       const userData = await this.authService.getInfo()
       const { roles = [] } = userData
       const isAdmin = roles.includes('Admin')
