@@ -12,4 +12,11 @@ export class ToolbarComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  public switchShowMenu(): void{
+    const menu = document.getElementById('navbarSupportedContent')
+    if(menu){
+      menu.classList.contains('show') ? menu.classList.remove('show') : menu.classList.add('show')
+    }
+  }
+
 }

@@ -63,4 +63,16 @@ export class GroupService {
       .get<any>(this.BASE_URL + `/request/group/${id}`, this.httpOptions)
       .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
   }
+
+  acceptRequest(id: string): Promise<any> {
+    return this.http
+      .patch<any>(this.BASE_URL + `/request/${id}`, JSON.stringify({status: "A"}), this.httpOptions)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
+
+  recuseRequest(id: string): Promise<any> {
+    return this.http
+      .patch<any>(this.BASE_URL + `/request/${id}`, JSON.stringify({status: "R"}), this.httpOptions)
+      .pipe(retry(1), catchError(this.commonService.handleError)).toPromise();
+  }
 }
