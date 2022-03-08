@@ -55,7 +55,6 @@ export class PerfilComponent implements OnInit {
   public switchIsEdit(func: string): void{
     this.isEdit = !this.isEdit
     if(func == 'cancel'){
-      console.log(this.storage_user)
       this.update_user = {...this.storage_user};
     }
   }

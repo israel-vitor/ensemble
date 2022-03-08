@@ -14,6 +14,7 @@ export class GrupoComponent implements OnInit {
 
   isOwner: boolean = true;
   requestedGroup: boolean = false
+  requestType: string = ''
   group_id: string = ''
   group = {
     name: '',
@@ -35,11 +36,10 @@ export class GrupoComponent implements OnInit {
     sub: -1,
     email: ''
   }
-
-  public request_users = [
+  request_users = [
     {
       id: 0,
-      status: 'P', 
+      status: 'R', 
       user: {
         id: -1,
         name: ''
@@ -68,7 +68,7 @@ export class GrupoComponent implements OnInit {
       this.request_users = group.requests
       this.thumbnail = this.commonService.getImageUrl(group.service.thumbnail, 'services')
       this.verifyOwner()
-      this.verifyRequest()
+      this.verifyRequest(group)
     }).catch(() => {
       this.toastService.showError('Erro ao carregar o grupo')
     })
@@ -83,10 +83,12 @@ export class GrupoComponent implements OnInit {
     }
   }
 
-  public verifyRequest(){
-    this.user = this.sessionService.getUser()
-    const request = this.request_users.filter(req => req.id == this.user.sub)
-    if(request.length) this.requestedGroup = true
+  public verifyRequest(group: any){
+    this.requestedGroup = group.hasRequest
+    if(this.requestedGroup){
+      const data_user = this.request_users.filter( req => req.user.id == this.user.sub)
+      if(data_user.length) this.requestType = data_user[0].status
+    }
   }
 
   public requestGroup(id:string) {

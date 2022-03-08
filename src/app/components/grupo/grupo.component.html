@@ -37,24 +37,22 @@
         <div class="details-participantes ps-5">
           <ul>
             <li *ngFor="let user of request_users">
-              <div class="row" *ngIf="isOwner || user.status != 'P'">
+              <div class="row" *ngIf="!(user.status == 'R') || isOwner">
                 <div class="col-md-6 user">
                   <i class="fa fa-user icon-perfil pe-3"></i>
                   <p>{{ user.user.name }}</p> 
                 </div>
                 <div class="col-md-6" *ngIf="isOwner">
-                  <div *ngIf="user.status != 'P'; then jaParticipante else naoParticipante"></div>
-                  <ng-template #jaParticipante>
-                    <div class="float-md-end float-lg-end float-xl-end float-xxl-end">
-                      <span class="badge ps-4 pe-4 bg-info-mod">Já participante</span>
-                    </div>
-                  </ng-template>
-                  <ng-template #naoParticipante>
-                    <div class="float-md-end float-lg-end float-xl-end float-xxl-end">
-                      <span class="badge ps-4 pe-4 bg-danger pointer me-2" (click)="recuseRequest(user.id.toString(), user.user.name)">Recusar solicitação</span>
-                      <span class="badge ps-4 pe-4 bg-success pointer" (click)="acceptRequest(user.id.toString(), user.user.name)">Aceitar solicitacao</span>
-                    </div>
-                  </ng-template>
+                  <div *ngIf="user.status == 'A'" class="float-md-end float-lg-end float-xl-end float-xxl-end">
+                    <span class="badge ps-4 pe-4 bg-info-mod">Já participante</span>
+                  </div>
+                  <div *ngIf="user.status == 'P'" class="float-md-end float-lg-end float-xl-end float-xxl-end">
+                    <span class="badge ps-4 pe-4 bg-danger pointer me-2" (click)="recuseRequest(user.id.toString(), user.user.name)">Recusar solicitação</span>
+                    <span class="badge ps-4 pe-4 bg-success pointer" (click)="acceptRequest(user.id.toString(), user.user.name)">Aceitar solicitacao</span>
+                  </div>
+                  <div *ngIf="user.status == 'R'" class="float-md-end float-lg-end float-xl-end float-xxl-end">
+                    <span class="badge ps-4 pe-4 bg-danger">Recusado</span>
+                  </div>
                 </div>
               </div>
             </li>
@@ -77,8 +75,10 @@
           <p class="text-info-valor"> Valor Final </p>
           <p class="text-quantidade"> {{(group.plan.price / group.plan.usersNumber).toFixed(2)}} </p>
         </div>
-        <button class="btn btn-success mb-2" (click)="requestGroup(group_id)" *ngIf="requestedGroup">Quero Participar</button>
-        <div class="alert alert-info bg-info-mod text-white" role="alert" *ngIf="!requestedGroup">Uma solicitação já foi enviada!</div>
+        <button class="btn btn-success mb-2" (click)="requestGroup(group_id)" *ngIf="!requestedGroup">Quero Participar</button>
+        <div class="alert alert-info bg-info-mod text-white" role="alert" *ngIf="requestedGroup && requestType=='P'">Sua solicitação foi enviada e ainda está em analise pelo administrador do grupo!</div>
+        <div class="alert alert-success" role="alert" *ngIf="requestedGroup && requestType=='A'">Parabéns, sua solicitação foi aceita e você já faz parte desse grupo</div>
+        <div class="alert alert-danger" role="alert" *ngIf="requestedGroup && requestType=='R'">Infelizmente sua solicitação foi recusada e você não pode fazer parte desse grupo</div>
       </div>
     </div>
 

@@ -29,7 +29,6 @@ export class CriarGrupoComponent implements OnInit {
 
   loadCategories() {
     this.serviceService.getServices().then(services => {
-      console.log(services)
       this.services = services.map((service: Service) => {
         return {
           ...service,

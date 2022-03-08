@@ -80,7 +80,6 @@ export class ServicesFormComponent implements OnInit {
       document.getElementById(`plan-${++this.plan_id}`)?.classList.remove('display-none')
       const btn = document.getElementById('btn-add-plan')
       if(btn){
-        console.log(this.plan_id)
         if(this.plan_id >= 10){
           btn.classList.add('display-none')
         } else {
@@ -95,7 +94,6 @@ export class ServicesFormComponent implements OnInit {
     this.plan_id--
     const btn = document.getElementById('btn-add-plan')
     if(btn){
-      console.log(this.plan_id)
       if(this.plan_id >= 10){
         btn.classList.add('display-none')
       } else {
