@@ -40,10 +40,15 @@
     color: white !important;
     font-weight: 300;
   }
-  .nav .active {
+  .nav-item .active {
     font-weight: bolder;
   }
   .text-white{
     color: #FFFFFF !important;
+  }
+
+  #navbarSupportedContent {
+    justify-content: end;
+    margin-right: 20px;
   }
 }
