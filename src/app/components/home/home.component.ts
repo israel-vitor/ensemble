@@ -4,6 +4,7 @@ import {Group} from "../../interfaces/group";
 import {ToastService} from "../../services/toast/toast.service";
 import {Router} from "@angular/router";
 import { CommonService } from 'src/app/services/common/common.service';
+import {AuthService} from "../../services/auth/auth.service";
 
 @Component({
   selector: 'app-home',
@@ -17,12 +18,16 @@ export class HomeComponent implements OnInit {
   constructor(
     private groupService: GroupService,
     private toastService: ToastService,
+    private authService: AuthService,
     private router: Router,
     private commonService: CommonService,
   ) { }
 
   ngOnInit(): void {
     this.loadGroups()
+    this.authService.refreshToken().toPromise().then(()=> {
+      console.log('Foi')
+    })
   }
 
   loadGroups() {
