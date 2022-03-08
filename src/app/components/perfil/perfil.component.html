@@ -40,12 +40,12 @@
       </div>
     </ng-template>
     <ng-template #elseBlock>
-      <div class="col-md-3 col-sm-12">
-        <button type="button" class="btn btn-info" (click)="switchIsEdit('edit')"> Editar Perfil</button>
+      <div class="col-md-6 col-sm-12">
+        <button type="button" class="btn btn-info edit-button" (click)="switchIsEdit('edit')"> Editar Perfil</button>
       </div>
-      <div class="col-md-3 col-sm-12">
-        <button type="button" class="btn btn-info"> Alterar Senha </button>
-      </div>
+<!--      <div class="col-md-3 col-sm-12">-->
+<!--        <button type="button" class="btn btn-info"> Alterar Senha </button>-->
+<!--      </div>-->
     </ng-template>
     <div class="col-md-6 col-sm-12">
       <button type="button" class="btn btn-secondary btn-exit float-md-end float-lg-end float-xl-end float-xxl-end" (click)="logout()"><i class="fa fa-sign-out"></i> Sair</button>
